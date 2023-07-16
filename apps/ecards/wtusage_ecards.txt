@@ -1,0 +1,33 @@
+http://www.webmasterthings.com/apps/ecards/makecard.php?pic=xxx&exitpage=xxx&contentrating=xxxx&adfile=xxx&wt_owner=xxx&picturelink=xxxx&picturetext=xxxx
+
+example usage (not missing[but ok] fields):
+http://www.webmasterthings.com/apps/ecards/makecard.php?pic=http://cfmembers.com/g/statuesil.jpg&exitpage=http://www.cfmembers.com&contentrating=g&wt_owner=1004&adfile=http://www.surferswap.com/main/index.php?from=1
+
+
+
+
+pic= full path and filename of the picture for the ecard
+
+exitpage = full path to an HTML page to 'exit' to when sender/rx'er is done
+
+contentrating = 'x' for adult 'f' for family 'g' for general audiences
+
+adfile = full path and filename of an 'ad block' a complete file of HTML 
+'instructions' to insert into the page (ie your code for a banner, webring, etc)
+
+wt_owner = wthings 'owner' code from database (to setup headers/footers)
+
+picturelink = URL to link this photo to
+
+picturetext = text to show under the photo that gets url of picturelink
+
+sendcardurl = where the card came from so pple can send more
+
+topbanner
+
+topbannerurl
+
+visitthis
+
+visitthistext
+

@@ -1,0 +1,130 @@
+<?
+
+if (file_exists("setup/setup.phtml")):
+
+	include("setup/setup.phtml");
+
+	if (file_exists("$listadmin/$list.phtml")):
+
+		include("$listadmin/$list.phtml");
+
+		if (file_exists("$header.phtml")):
+			include("$header.phtml");
+		endif;
+
+		echo "<center><br><br><br>";
+
+		function emailOK($str) {
+		$badChars = "[ ]+| |\+|=|[|]|{|}|`|\(|\)|,|;|:|!|<|>|%|\*|/|'|\"|~|\?|#|\\$|\\&|\\^|www[.]";
+		return (eregi($badChars,$str));
+		}
+
+		if ($enc != ""):
+			if (file_exists("confirm/$enc")): $optin = "off"; include("confirm/$enc"); endif;
+		endif;
+	
+		if ( !(eregi("([a-z0-9_\.-])+@([a-z0-9_\.-])+\.([a-z0-9_\.-])+",$email)) || emailOK($email)):
+
+			echo "<P>The email address you submitted ( <b>$email</b> ) is invalid.
+			<BR>Please check and resubmit.";
+			echo "<P><FORM><INPUT TYPE=BUTTON VALUE=\"Go Back\" onClick=\"history.go(-1)\"></form>";
+
+		else:
+
+			if (file_exists("$lists/$id.phtml")):
+
+				exec("grep '$email' '$lists/$id.phtml'",$execAr);
+
+				if ($execAr[0] != ""):
+
+					echo "<b>Error!</b><BR>This address is already on our list.";
+
+				else:
+
+					if ($optin == "on"):
+
+						$enc = uniqid("");
+
+						$to = "$email";
+						$from = "$listname <$from>";
+						$subject = "Subscribe Confirmation";
+						$body = "Thank you for subscribing to the $listname list.\n\nTo confirm your subscription please click the link below:\n$url/subscribe.phtml?list=$list&enc=$enc\n\nIf you did not subscribe to this list please disregard this message and you will not receive any future mailings.";
+			
+						mail($to,$subject,$body,"FROM: ".$from);
+
+						$filemessage = "<? \$email = \"$email\"; ?>";
+						$cartFile = fopen("confirm/$enc","w+");
+						fputs($cartFile,$filemessage);
+						fclose($cartFile);
+
+						echo "<P>Thank you<P>A confirmation message has been sent to <b>$email</b><BR>Please check your mail to complete the subscription process.";
+	
+					else:
+
+						$filename = "$lists/$id.phtml";
+						$fd = fopen( $filename, "r" );
+						$contents = fread( $fd, filesize( $filename ) );
+						fclose( $fd );
+		
+						if ($contents == ""):
+							$fileMessage = "$email";
+						else:
+							$fileMessage = "\n$email";
+						endif;
+	
+						$count=0;
+						$maxloop=5;
+						$finished=0;
+						while ($count<$maxloop&&!$finished) {
+						if (file_exists("$lists/$id.phtml")):
+	
+							exec ("mv -f '$lists/$id.phtml' '$lists/$id.tmp'");
+	
+							$cartFile = fopen("$lists/$id.tmp","a+");
+							fputs($cartFile,$fileMessage);
+							fclose($cartFile);
+	
+							exec ("mv -f '$lists/$id.tmp' '$lists/$id.phtml'");
+							$finished=1;
+	
+						else:
+					
+							sleep(1);
+													
+						endif;
+						$count++;
+						}
+			
+					echo "<P>Thank you<P><b>$email</b><BR>has been subscribed to our mailing list.";
+	
+				endif;
+
+			endif;
+		
+		else:
+
+			echo "<P><b>Error!</b><BR>The list you are trying to susbcribe to does not exist";
+
+		endif;
+		endif;
+
+	else:
+
+		echo "I'm sorry your address could not be added to our list at this time.<BR>Please try again later.";
+
+	endif;
+
+else:
+
+	echo "I'm sorry your address could not be added to our list at this time.<BR>Please try again later.";
+	
+endif;
+
+
+echo "<BR><BR><BR><BR><font size=\"1\"><a href=\"http://www.webdrive.co.nz/php/mlm.phtml\" target=\"new\">Powered by MultiList Manager</a></font></center>";
+
+if (file_exists("$footer.phtml")):
+	include("$footer.phtml");
+endif;
+
+?>

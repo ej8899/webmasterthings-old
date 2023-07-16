@@ -1,0 +1,53 @@
+# --------------------------------------------------------
+#
+# Table structure for table 'banneradmin'
+#
+
+CREATE TABLE wt_banneradmin (
+   id int(11) DEFAULT '0' NOT NULL auto_increment,
+   adminuser varchar(15) NOT NULL,
+   adminpass varchar(15) NOT NULL,
+   PRIMARY KEY (id),
+   UNIQUE id (id, adminuser)
+);
+
+INSERT INTO wt_banneradmin (id, adminuser, adminpass) VALUES (1, 'admin', 'pass');
+
+
+# --------------------------------------------------------
+#
+# Table structure for table 'bannerurls'
+#
+
+CREATE TABLE wt_bannerurls (
+   id int(11) DEFAULT '0' NOT NULL auto_increment,
+   bannerurl varchar(200) NOT NULL,
+   uid int(11) DEFAULT '0' NOT NULL,
+   PRIMARY KEY (id),
+   UNIQUE id (id)
+);
+
+
+# --------------------------------------------------------
+#
+# Table structure for table 'banneruser'
+#
+
+CREATE TABLE wt_banneruser (
+   id int(11) DEFAULT '0' NOT NULL auto_increment,
+   login varchar(20) NOT NULL,
+   pass varchar(20) NOT NULL,
+   name varchar(200) NOT NULL,
+   email varchar(100) NOT NULL,
+   url varchar(200) NOT NULL,
+   exposures int(11) DEFAULT '0' NOT NULL,
+   credits int(11) DEFAULT '0' NOT NULL,
+   clicks int(11) DEFAULT '0' NOT NULL,
+   siteclicks int(11) DEFAULT '0' NOT NULL,
+   approved tinyint(4) DEFAULT '0' NOT NULL,
+   defaultacct tinyint(4) DEFAULT '0' NOT NULL,
+   raw blob,
+   lastip text NOT NULL,
+   PRIMARY KEY (id),
+   UNIQUE id (id, login)
+);

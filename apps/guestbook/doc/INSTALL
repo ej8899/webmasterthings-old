@@ -1,0 +1,135 @@
+#################################################################################################                
+#                                                                                                                
+#  Project           : phpBook                                                                                   
+#  File name         : INSTALL                                                                             
+#  Last Modified By  : Erich Fuchs                                                                               
+#  e-mail            : erich.fuchs@netone.at                                                                     
+#  Purpose           : INSTALLATION                                                                                 
+#                                                                                                                
+#################################################################################################                
+
+Special Thanks:
+---------------
+
+Michael Schneider <schneider@zeitgeist.ch> 	Improvements of Moderator-Functions 
+Nicky <nicky@nicky.net>				Language Templates & Improvements
+
+Intro:
+------
+
+!!! PLEASE LEAVE THE COPYRIGHT NOTICE INTACT !!! THANK YOU !!!
+
+Note: Please read the LICENSE file included in the distribution to get the license
+      this program is subject to.
+
+phpBook is a spinoff from an Idea in summer 2000:
+the idea was born at a heavy party-night in IBIZA,Spain,Europe -> www.erotikbazar.com
+
+phpBook is a PHP script that allows you to display a well looking Guestbook 
+on your website in a very convenient way.
+
+To see this script in action, you can browse the following websites :
+- http://www.netone.at
+
+Requires:
+- PHP v3.x OR v4.x
+- mySQL 
+
+Not required but very useful:
+- phpMyAdmin would be a very good idea
+
+Changelog:
+----------
+1.34 	(18/04/2001):	Language Templates added (dutch, arabic)
+			US & EU Date&Time-Format added
+			Name-Field NOT empty BUGFIX
+			Admin Pagebreaks BUGFIX
+
+1.33 	(07/04/2001):	Language Templates added (THX to nicky -> www.nicky.net)
+			Locations Templates added
+			Netscape4 support added (style.css BUGFIX)
+
+1.32 	(22/03/2001):	Netscape6 support added (style.css BUGFIX)
+
+1.31 	(22/03/2001):	PageBreaks First & Last Page Link added
+			some Smilies added :-)
+			minor BugFix's
+
+1.30	(14/03/2001):	Looooong Word Break added
+			URL-Codes added
+			minor BugFix's 
+
+1.22	(06/03/2001):	Function str_repeat() replacement for backward comp. added 
+
+1.21	(28/02/2001):	minor BugFix's 
+
+1.20	(21/02/2001):	MODERATOR-Function's added (create, delete Comments)
+			BadWord-Function modified
+			minor BugFix's 
+			
+1.10	(14/02/2001):	MODERATOR-Function added (delete Entrys)
+			guestbook_location.eu.inc added
+			
+1.02	(12/02/2001):	BugFix mySQL-Problem with some mySQL-Version's
+			(!!! Tables changed !!!)
+
+1.01	(11/02/2001):	BugFix' minor optical things
+
+1.00	(09/02/2001):	BugFix's
+			Smilie User Help
+ 			Smilie Database (for easy Smilie Implementation)
+
+0.8   	(20/01/2001): 	First public release.
+
+Installation:
+-------------
+
+- unzip the distribution file into your http documents directory.
+
+- create the mysql database (usually phpBook) with mysqladmin.
+.) mysqladmin  -u<your_mysql_user> -p<your_mysql_pass> create phpBook
+
+- create the mysql tables. you have 2 options :
+
+1) mysql -u<your_mysql_user> -p<your_mysql_pass> phpBook<phpBook.sql
+
+2) use phpMyAdmin to run the SQL file 'phpBook.sql'
+
+- edit config.php to your need's
+
+- all should be ok at this point.
+
+Administration:
+---------------
+
+Enter the link with correct admin-variable in place.
+e.g.: http://www.domain.com/book/guestbook.php?admin=changeme 
+(where "changeme" MUST BE the password spec. in config.php as $adminpass)
+
+Languages & Locations
+---------------------
+
+If you have translated or done a new language or location file, please send it to office@netone.at
+THX
+
+Support:
+--------
+
+ONLY use our Support-Forum at http://www.netone.at
+
+Upgrade:
+--------
+
+V1.x Versions:
+from V1.10 to V1.2x you can use the upgrade-util's in /doc -directory
+
+Prior versions:
+there is no upgrade utility, install V1.2x or higher NEW and migrate the guestbook-table
+
+Future Feature's:
+-----------------
+
+
+----------------------------------------------------------
+(c) 2001 NETonE High Quality Networking (office@netone.at) 
+All rights reserved.

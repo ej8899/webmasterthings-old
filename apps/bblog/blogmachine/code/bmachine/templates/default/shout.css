@@ -1,0 +1,27 @@
+/*
+***************************
+BN Soft boastMachine
+http://boastology.com
+
+Developed by Kailash Nadh.
+kailash@bnsoft.net
+http://bnsoft.net
+
+Default Style sheet
+***************************
+*/
+
+
+/* SHOUT BOX STYLES */
+
+/* Text boxes */
+.text_box { font-family:Verdana; font-size:8pt; color:rgb(88,88,164); background-color:rgb(239,239,239); border-width:1; border-style:solid; }
+
+/* Other text */
+.txt { font-family:Verdana; font-size:8pt; color:rgb(82,56,82); }
+
+/* The poster's name (Clickable link) */
+.txt_name { font-family:Verdana; font-size:8pt; color:rgb(229,58,1); }
+
+/* Message style */
+.txt_msg { font-family:Verdana; font-size:8pt; color:rgb(71,71,128); }

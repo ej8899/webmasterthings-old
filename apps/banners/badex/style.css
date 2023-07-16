@@ -1,0 +1,165 @@
+body 
+{  
+background: #000000; 
+font-family: "verdana"; 
+font-size: 8pt; 
+color: #FFFFFF; 
+text-decoration: none;
+cursor: auto;
+} 
+
+td 
+{ 
+color: #FFFFFF; 
+text-decoration: none; 
+cursor: auto; 
+font-family: "verdana"; 
+font-size: 8pt;
+} 
+
+a 
+{
+color: #999999; 
+text-decoration: none; 
+font-family: "verdana"; 
+font-size: 8pt;
+}
+
+a:hover 
+{  color: #FFFFFF; 
+text-decoration: none; 
+font-family: "verdana"; 
+font-size: 8pt; 
+font-style: strong;
+}
+
+B 
+{ 
+font-size: 8pt;
+}
+
+B.heading 
+{ 
+font-size: 8pt;
+}
+
+table 
+{
+background: #000000; 
+color: #666666; 
+text-decoration: none; 
+font-family: "verdana"; 
+font-size: 8pt;
+cursor : auto;
+}
+
+p 
+{ 
+color: #666666; 
+text-decoration: none; 
+font-family: "verdana"; 
+font-size: 8pt;}
+
+.newstitle 
+{
+color: #AA66AA;
+cursor : auto;
+}
+
+P.plaintext 
+{
+font-size: 8pt; 
+color: #FFFFDD;
+}
+
+input 
+{	
+background-color : #333333;
+border-color : #777777;
+color : #BCBCBC;
+font-size : 12;
+font-family: "verdana";
+border-style : solid;
+border-width : 1;
+}
+
+select
+{	
+background-color : #333333;
+border-color : #777777;
+color : #BCBCBC;
+font-size : 12;
+font-family: "verdana";
+border-style : solid;
+border-width : 1;
+}
+
+.input
+{	
+background-color : #333333;
+border-color : #777777;
+color : #BCBCBC;
+font-size : 12;
+font-family: "verdana";
+border-style : solid;
+border-width : 0;
+}
+
+.radio
+{	
+background-color : #000000;
+border-color : #000000;
+color : #BCBCBC;
+font-size : 12;
+font-family: "verdana";
+border-style : solid;
+border-width : 0;
+}
+
+.windowbg
+{
+background-color: #000000;
+border-color: #999999 #999999 #999999 #999999; 
+padding-top: 1px; 
+padding-right: 1px; 
+padding-bottom: 1px; 
+padding-left: 1px; 
+border-style: outset; 
+border-top-width: 1px;
+border-right-width: 1px; 
+border-bottom-width: 1px; 
+border-left-width: 1px
+}
+
+.windowbg2
+{
+background-color: #666666;
+border-color: #999999 #414141 #414141 #999999;
+border-style: outset; 
+border-top-width: 1px; 
+border-right-width: 1px; 
+border-bottom-width: 1px; 
+border-left-width: 1px
+}
+
+.windowbg3
+{
+background-color: #999999;
+border-color: #FFFF99 #CC9900 #CC9900 #FFFF99; 
+border-style: outset; 
+border-top-width: 1px; 
+border-right-width: 1px; 
+border-bottom-width: 1px; 
+border-left-width: 1px;
+}
+
+.textarea
+{	
+background-color : #333333;
+border-color : #777777;
+color : #BCBCBC;
+font-size : 12;
+font-family: "verdana";
+border-style : solid;
+border-width : 0;
+}

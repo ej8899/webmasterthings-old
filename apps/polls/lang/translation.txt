@@ -1,0 +1,23 @@
+Thanks to the following people for the translation:
+
+- kungkun rismayadi <webmaster@westborneo.com> - indonesia.php
+- Admin [daghan.com] <admin@daghan.com> - turkish.php
+- <webmaster@blackcrow.co.kr> - korean.php
+- Erik Praznovsky <http://magazine.sk> - slovak.php
+- Lukas Zapletal <lzap@bach.cz> - czech.php
+- Jukka Vainikainen <msp@digivideo.org> - finnish.php
+- Martin Orn <martin@kadi.ee> - estonian.php
+- Alexander V. Egorov <alexon@konkrit.perm.ru> - russian.php
+- Attila Pergel <www.pergel.hu> - hungary.php
+- Cyril GOURGEOT <cyril.gourgeot@wanadoo.fr> - french.php
+- Michael Paluchowski <paluchowski@post.pl> - polish.php
+- M@rtiN <martine@vikstromonline.com> - svenska.php
+- Thøger Niels Pørtner <tnp@tnp.dk> - danish.php
+- PIxXeL <pixxel@galeb.etf.bg.ac.yu> - serbian.php
+- Teddy <admin@palm-cool.com> - chinesebig5.php
+- Rolando Lora <rlddm@yahoo.com> - spanish.php
+- Morten Buljo <morten@buljo.net> - norsk.php
+- Axel '=X¥®µ§=' Vandevenne <www.rlgaming.com> - dutch.php
+- Melkih Washington <melkih@hotmail.com> - portuguese.php
+- Simone <simone@clarence.com> - italian.php
+

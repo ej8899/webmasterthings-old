@@ -1,0 +1,35 @@
+/////////////////////////////////////////////////
+//              phpBannerExchange              //
+//              A Free Script by:              //
+//                                             //
+// darkrose - darkrose@internetunderground.com //
+//       lazurus - lazurus@rustedgate.com      //
+//                                             //
+// Updates and future versions can be found at://
+// http://www.internetunderground.com/scripts/ //
+//                                             //
+// This script is covered under the GNU GPL.   //
+//                                             //
+// If you modify this script, please make your //
+// code available to us! We are not programmers//
+// by trade, so there's bound to be bugs and   //
+// inefficient code, but we're trying!         //
+/////////////////////////////////////////////////
+
+UPGRADING FROM 1.1 to 1.2 - NOTES
+--------------------------------
+You will need to re-do your config.php.  There's been a few things added here. Also, when you upload your files, make sure you don't overwrite your style.css if you've changed it. We've also added an install script, so make sure you don't upload it.
+
+--------------------------------
+UPGRADING FROM 1.0 to 1.1
+There has been some changes made to the database tables to include some new functionality.  Because of this, you will need to ALTER your db tables to reflect the new changes.  Run the following SQL query:
+
+    ALTER TABLE banneruser ADD lastip TEXT not null
+
+This will fix the DB tables. If you don't do this, people will not be able to join your exchange or change their information.  You may also get errors when updating clicks and exposures.
+
+You will also need to re-do your config.php.  There's been a few things added here. Also, when you upload your files, make sure you don't overwrite your style.css if you've changed it.
+
+You can check out the CHANGELOG.txt document to see all the marvelous stuff we've done to the script. :)
+
+~Darkrose~

@@ -1,0 +1,117 @@
+#############################################################################
+
+phpQuotes v1.0 (03/22/2001)
+Copyright (c) 2001 Seyed Razavi (seyed@smartmonkey.co.uk)
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+#############################################################################
+
+Plugin porting:
+Seyed Razavi <seyed@smartmonkey.co.uk>
+
+Portions of phpquotes are based on GPL code from the following:
+
+PHP-NUKE
+Copyright (c) 2000 by Francisco Burzi (fburzi@ncc.org.ve)
+http://phpnuke.org
+
+phpWebSite
+Copyright (c) 2000, 2001 Web Technology Group, Appalachian State University
+
+PHPWeather
+Copyright (C) 2000 Martin Geisler <gimpster@gimpster.com>
+
+phpwhosonline
+Copyright (c) 2000, 2001 Tat Rithaporn (tat@sntfreight.com)
+
+qotd (Quote of the day) function for phpnuke
+Erik Sooff (erik@slooff.com)
+Joe Stump of miester.org.
+
+Thanks to Wade Weppler (weppler@wwworks-inc.com)
+
+######################################################################
+phpquotes ChangeLog
+######################################################################
+
+V1.0 (03/21/2001) 
+
+- Initial Release
+
+######################################################################
+phpquotes Features and Plans
+######################################################################
+
+	o Random selection of a quote from quotes database
+	o Add / Edit quotes from admin
+
+######################################################################
+phpquotes Plug-In Installation
+######################################################################
+
+If you wish to run the phpquotes plug-in on your site you will need
+the following files:
+
+README 			- Instructions for installation, uninstallation,
+			  credits, etc.
+
+phpquotes_setup.php - Installation File: Sets up plugins database for proper operation.
+phpquotes_admin.php	- Allows location change of phpStoryScroller.
+
+phpquotes.inc	- Functions to display current phpquotes.
+phpquotes.php	- PHP script that runs phpquotes.
+phpquotes.gif	- Icon for phpquotes.
+
+1.	create a plugin directory called phpquotes
+	e.g. http://www.phpwebsite_site.com/plug-ins/phpquotes/
+
+2.	copy 3 files to that directory: phpquotes.inc
+		      			phpquotes.php
+		      			phpquotes.gif
+
+3.	Copy 2 files to the main directory of phpwebsite:
+		phpquotes_setup.php 
+	     	phpquotes_admin.php 
+	
+	e.g. http://www.phpwebsite_site.com/
+
+4.	Log in as administrator to your website.
+
+5	Point your browser at: 
+	http://your_phpWebSite_powered_site.com/phpquotes_setup.php
+
+6. 	The setup routine will confirm that you want to install the 
+   	phpquotes plug-in.  Answer "Yes" if you wish to proceed.
+
+7. 	phpquotes administration will now be in the "Plug-In" area of the
+   	the administration menu. Clicking the phpquotes icon will take 
+   	you to the phpquotes options.
+
+######################################################################
+phpquotes Plug-In Uninstall
+######################################################################
+
+1.	Make sure you have turned off phpquotes in the administration area.
+	(Not really necessary.)
+
+2.	Remove the line for plugin information from the database table "plugins".
+	
+3.	Delete phpquotes_setup.php and phpquotes_admin.php from the main directory of phpwebsite.
+	note:  you may have already deleted phpquotes_setup.php after installation was done
+	
+4.	Delete the phpquotes plug-ins directory.
+
+5.  Drop the phpquotes table from the database.

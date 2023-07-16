@@ -1,0 +1,38 @@
+call with:
+http://www.webmasterthings.com/apps/surfboard/surfboard.php?complete=x&wt_owner=xx
+
+complete= show 'x' number of entries in system
+
+example for MNP:
+http://www.webmasterthings.com/apps/surfboard/surfboard.php?complete=1&wt_owner=1001
+
+<?PHP require "http://www.webmasterthings.com/apps/surfboard/surfboard.php?complete=1&wt_owner=1001"; ?>
+
+TODO:
+ - only keep last 100 entries for each user- clean each user when they access system
+ - allow to keep max 100 entries - 
+ - clean up message posted - only show thanks for posting and a close button
+
+
+NEW STYLES:
+
+.wt_tableheader {
+	background-color: #858585;
+}
+
+
+CREATE TABLE wt_surfboard (
+sb_id
+int(4)
+unsigned
+zerofill
+DEFAULT '0000'
+NOT NULL
+auto_increment,
+wt_owner int(10),
+sb_name varchar(25),
+sb_time timestamp(14),
+sb_msg text,
+PRIMARY KEY (sb_id)
+);
+

@@ -1,0 +1,75 @@
+
+<?
+
+function top() {
+
+echo "<html><head>
+<title>Admin Security Check</title>
+</head><body>
+<br><br><br><center>
+<table width=280><tr><td width=280 valign=top>
+<table width=\"280\" border=\"1\" cellspacing=\"0\" cellpadding=\"3\" bordercolor=\"#808080\" bordercolorlight=\"black\" bordercolordark=\"white\">
+<tr><td bgcolor=\"#0000A0\">
+<font face=\"arial\" size=\"2\" color=\"white\"><b>MLM Administration</b>
+</td></tr><tr><td bgcolor=\"#C0C0C0\"><font face=\"arial\" size=\"2\">";
+}
+
+function bottom() {
+
+echo "</td></tr></table>
+</td></tr></table>
+</center></body></html>";
+}
+
+if ($admin == "admin"):
+
+	if (file_exists("setup/pw.phtml")):
+
+		include("admin.phtml");
+	
+	else:
+	
+		$passwd = crypt($password, "salt");
+
+		exec("mkdir setup");
+		exec("chmod 770 setup");
+		exec("touch setup/index.html");
+
+		$fileMessage = "<? \$pw = \"$passwd\"; ?>";
+		$cartFile = fopen("setup/pw.phtml","w");
+		fputs($cartFile,$fileMessage);
+		fclose($cartFile);
+
+		$admin = "admin";
+		include("admin.phtml");
+	
+	endif;
+
+else:
+
+	if (file_exists("setup/pw.phtml")):
+
+		top();
+		echo "Please enter your administrative password
+		<form method=post action=$GLOBALS[PHP_SELF]>
+		<input type=hidden name=admin value=admin>
+		<input type=hidden name=login value=2>
+		<input type=password name=password size=25><input type=submit value=Submit></form>";
+		bottom();
+
+	else:
+
+		top();
+		echo "Please enter an administrative password
+		<form method=post action=$GLOBALS[PHP_SELF]>
+		<input type=hidden name=admin value=admin>
+		<input type=hidden name=login value=1>
+		<input type=password name=password size=25>
+		<input type=submit value=Submit></form>";
+		bottom();
+
+	endif;
+	
+endif;	
+
+?>

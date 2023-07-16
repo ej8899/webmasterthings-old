@@ -1,0 +1,125 @@
+Description:
+	Banner Boy is a simple banner rotation program that uses PHP and MySQL.
+
+Features:
+	Banner "zones" may be setup and banners can run in multiple zones.
+
+	Banner Boy can reguritate raw HTML to accomodate other banner programs
+	within the framework of Banner Boy.  In fact you can use Banner Boy to
+	rotate HTML through zones without any banners at all.
+
+	Banners are displayed sequentially for each zone.  This eliminates the
+	problem of using a random number generator to choose the banner, since
+	random number generators are usually abysmal in their randomness.
+
+	Banner Boy keeps track of exposures and click-thru's for each banner.
+
+	Banner Boy, since it's PHP doesn't spawn any extra processes therefore
+	it's pretty fast compared to traditional CGI banner programs.
+
+Known bugs/limitations:
+	Banners are selected using a "bigint" field in a MySQL database which
+	is incremented each time a banner in that zone is displayed.  This will
+	cause the program to break when the maximum value for that field is
+	reached.  (This will happen after 2^64 exposures for a zone.  This won't
+	happen in your lifetime.)  Possibly as this field grows the modulus 
+	arithmetic that selects the banner will take increasingly longer, slowing
+	down the banner display.  A workaround if this happens is to periodically
+	zero the "next" field in the "master_zones" table through a crontab.
+
+	The database authentication information is stored in-line in each of
+	the files.  It would be safer to include this information in file that
+	is NOT in the web servers file space.  Users should be able to implement
+	this easily, but I didn't for sake of simplicity.
+
+	The admin tool could look much cooler.
+
+	This was originally written as a stop-gap measure until my department
+	decided on which "National Banner Ad" program to dump a bunch of money
+	into.  Therefore the coding style is a bit convoluted.  We still use
+	Banner Boy.
+
+	It would be nice if the docs were available in other languages other
+	than English.  If you are interested converting the code to other 
+	languages, email tony@thinkudyne.com
+
+INSTALLATION:
+	The author assumes the user has some knowledge of MySQL administration
+	and interfacing PHP to MySQL.
+
+	There are three files that comprise Banner Boy: banners.php, the banner
+	administration interface; banners.inc, the include file that holds the
+	function show_banner($li, $zone); ad_link.php, the file that redirects
+	the client to the target URL when a banner is clicked on.
+
+	If you're reading this then you successfully un-tarred the tarball and
+	are ready to install the files.  The files can be installed pretty much
+	anywhere under your web server directory with the caveat that the admin
+	tool (banners.php) should be in a password-protected directory.
+
+	The file schema.sql is the database schema Banner Boy will use to store
+	it's information.  The tables can be added to an existing database, or a
+	new database can be created just for these tables.  It's beyond the scope
+	of this document to address database issues, consult 
+	http://www.mysql.com/ for more information.  'cd' to the directory
+	schema.sql is stored in and add the tables to your database using the 
+	command:
+	>mysql -uuser -ppassword database <schema.sql
+
+	All three files will need to have the MySQL host/database/user/password
+	set to match the database you installed the Banner Boy tables in.
+
+	In addition, in the file banners.inc you will need to set the variable
+	$ad_link_loc.  This is the location of the file ad_link.php as seen by
+	the server.  This variable gets copied verbatim into an A HREF statement
+	and needs to include the filename ad_link.php.  For example, if you put
+	the file ad_link.php in a directory called "banners" under the document
+	root of your web server, $ad_link_loc would be set to:
+	 '/banners/ad_link.php'.
+
+	Every page that you want to display banners on will need to include the
+	file banners.inc which contains the function show_banner($li, $zone).
+	For example if banners.inc is located in a directory named "include"
+	under the document root of your web server add the line:
+	<? include ("$DOCUMENT_ROOT/include/banners.inc") ?> to your page before
+	you call the function show_banner().
+
+	Banner Boy uses "zones" to determine where a banner will show up on your
+	site.  Zones can be set up for different sections and banners can be
+	set to display in certain zones.  If you don't want to zone your ads, just
+	set one zone and have all of your ads display in that zone.  Multiple calls
+	to show_banner () can be on one page, but if there is more than one call
+	to show_banner () with the same zone, you have the possibility of seeing
+	a banner twice on the page.
+
+	The administration interface is pretty self-explanatory with a couple of
+	quirks you should be aware of.  When you add a new banner it will pre-fill
+	http:// in both where the banner is located and where the banner should
+	link to.  If you don't want a banner to link, delete the http:// from
+	the link field or Banner Boy will link it to http://, which doesn't make
+	any sense.
+
+	If you fill in any information in the "Raw HTML" field under "Add new 
+	banner", Banner Boy will ignore the banner URL and link URL and just
+	reguritate whatever raw HTML you entered in that text area.  This works
+	pretty dandy if you are using Banner Boy with any other banner programs
+	and want to rotate those banners along with ones only in Banner Boy.
+	If you use raw HTML, exposures will be logged, but click-thrus won't
+	since there is no way to capture them.
+
+	After you have created a zone, you can use the administration tool to 
+	show you what PHP you need to drop into your page to get the banners to
+	display for that zone.  Just select the zone from the drop-down menu
+	and click "Submit".  The PHP you need to drop in will be displayed.
+
+	Oh, BTW, you need to create at least one zone before you start adding
+	banners or it has nowhere to display.  If you add a zone after a banner 
+	was entered you can always "Edit" the banner and add it to that zone.  I 
+	guess I should've mentioned this earlier.
+
+EPILOGUE:
+	If you found this program useful (or not), found the documentation 
+	fabulous (or lacking), or found a big fat bug email the author at:
+	tony@thinkudyne.com
+	
+

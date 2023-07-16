@@ -1,0 +1,1265 @@
+<?
+
+/*
+
+############################################
+##                                        ##
+##        MULTILIST MANAGER v 1.6.1       ##
+##          by Daniel Williams            ##
+##                                        ##
+##      http://www.webscriptworld.com     ##
+##                                        ##
+############################################
+
+Copyright 2000 Web Drive Limited.  All Rights Reserved.
+
+This program may be used and modified free of charge by anyone, so
+long as this copyright notice and the header above remain intact.  By
+using this program you agree to indemnify Web Drive Limited from any
+liability.
+
+Selling the code for this program without prior written consent is
+expressly forbidden.  Obtain permission before redistributing this
+program over the Internet or in any other medium.  In all cases
+copyright and header must remain intact.
+
+Please view the ReadMe.txt file before running this script.
+
+DO NOT MODIFY ANY OF THE CODE BELOW! 
+
+*/
+
+$version = "1.6.1";
+
+if ($admin == "admin"):
+
+	if (file_exists("setup/check.phtml")):
+	$filename = "setup/check.phtml";
+	$fd = fopen( $filename, "r" );
+	$count = fread( $fd, filesize( $filename ) );
+	fclose( $fd );
+	endif;
+
+	if ($count == "2"):
+
+		echo "<html><head>
+	    <title>Admin Security Check</title>
+		</head><body>
+		<br><br><br><center>
+		<table width=280><tr><td width=280 valign=top>
+		<table width=\"280\" border=\"1\" cellspacing=\"0\" cellpadding=\"3\" 	bordercolor=\"#808080\" bordercolorlight=\"black\" bordercolordark=\"white\">
+		<tr><td bgcolor=\"#0000A0\">
+		<font face=\"arial\" size=\"2\" color=\"white\"><b>MLM Administration</b>
+		</td></tr><tr><td bgcolor=\"#C0C0C0\"><font face=\"arial\" size=\"2\">
+		<br><center>Unauthorised access suspected.<BR>This account has been locked.<br><br><br><br>
+		</td></tr></table>
+		</td></tr></table>
+		</center></body></html>";
+
+		$id = uniqid("");
+	
+		$fileMessage = "<? exec(\"rm -rf setup/check.phtml\"); echo \"<br><center><font face=arial size=2>Password File Unlocked</center>\"; exec(\"rm -rf '$id.phtml'\"); ?>";
+		$cartFile = fopen("$id.phtml","w+");
+		fputs($cartFile,$fileMessage);
+		fclose($cartFile);
+	
+		if (file_exists("setup/setup.phtml")):
+			include("setup/setup.phtml");
+			$to = "$myemail";
+			$from = "MultiList <nobody>";
+			$subject = "Security Violation";
+			$body = "The password file on your MultiList Manager has been locked due to an attempted unauthorized entry.\n\nTo regain access, visit $url/$id.phtml.\n\nIt is strongly recommended you change your password regularly.";
+
+			mail($to,$subject,$body,"FROM: ".$from);
+
+		endif;
+		
+	else:
+
+		if ($password1 != ""):
+			$uid = "$password1";
+		else:
+			$uid = "$password";
+		endif;
+
+		$password = crypt($password, "salt");
+
+		if (file_exists("setup/pw.phtml")):
+			include("setup/pw.phtml");
+		endif;
+
+		if ($password == "$pw"):
+
+// PASSWORD VERIFIED	
+
+			$fileMessage = "0";
+			$cartFile = fopen("setup/check.phtml","w+");
+			fputs($cartFile,$fileMessage);
+			fclose($cartFile);
+
+	
+			if ($mode == "simp" || $mode == "adv"):
+			
+				$fileMessage = "<? \$mode = \"$mode\"; ?>";
+				$cartFile = fopen("mode.phtml","w+");
+				fputs($cartFile,$fileMessage);
+				fclose($cartFile);
+			
+			endif;	
+
+			if (file_exists("mode.phtml")):
+				include("mode.phtml");
+			else:
+				$mode = "adv";
+			endif;	
+
+			echo '<HTML><HEAD><TITLE>MLM Administration</TITLE></HEAD>
+			<BODY bgcolor="white" text="black">
+			
+			<table width=700><tr><td width=180 valign=top>
+			<table width="160" border="1" cellspacing="0" cellpadding="3" bordercolor="#808080" bordercolorlight="black" bordercolordark="white">
+			<tr><td bgcolor="#0000A0"><font face="arial" size="2" color="white"><b>Admin Options</b></td>
+			</tr><tr><td bgcolor="#C0C0C0">
+			<font face="arial" size="2"><form method="post" action="admin.phtml">
+			<input type="hidden" name="password" value="'; echo "$uid"; echo '">
+			<input type="hidden" name="admin" value="admin">
+			<BR><input type="radio" name="adminoption" value="sendmail"'; if ($check == "sendmail" || $adminoption == "sendmail"): echo " checked"; endif; echo '> Send Mail to List
+			<br><input type="radio" name="adminoption" value="viewsubs"';  if ($check == "viewsubs" || $adminoption == "viewsubs"): echo " checked"; endif; echo '> View Subscribers'; 
+			
+			if ($mode == "adv"): echo '<br><input type="radio" name="adminoption" value="addlist"';  if ($check == "addlist" || $adminoption == "addlist"): echo " checked"; endif; echo '> Add List
+			<br><input type="radio" name="adminoption" value="editlist"';  if ($check == "editlist" || $adminoption == "editlist"): echo " checked"; endif; echo '> Edit List
+			<br><input type="radio" name="adminoption" value="imex"';  if ($check == "imex" || $adminoption == "imex"): echo " checked"; endif; echo '> Import/Export'; endif;
+			
+			echo '<br><input type="radio" name="adminoption" value="viewarchives"';  if ($check == "viewarchives" || $adminoption == "viewarchives"): echo " checked"; endif; echo '> View Archives';
+			
+			if ($mode == "adv"): echo '<br><input type="radio" name="adminoption" value="htmlforms"';  if ($check == "htmlforms" || $adminoption == "htmlforms"): echo " checked"; endif; echo '> Generate Forms
+			<br><input type="radio" name="adminoption" value="setup"';  if ($check == "setup" || $adminoption == "setup"): echo " checked"; endif; echo '> Set Up'; endif;
+			
+			echo '<br><input type="radio" name="adminoption" value="chng_passwd"'; if ($check == "chng_passwd" || $adminoption == "chng_passwd"): echo " checked"; endif; echo '> Change Password
+			<br><input type="radio" name="adminoption" value="backup"'; if ($check == "backup" || $adminoption == "backup"): echo " checked"; endif; echo '> Back Up';
+			
+			echo '<BR><input type="checkbox" name="mode" value="'; if ($mode == "adv"): echo "simp"; else: echo "adv"; endif; echo '"> <font size="1">To '; if ($mode == "adv"): echo "Simple"; else: echo "Advanced"; endif; echo ' Mode</font>
+			<p><input type="Submit" value="Submit">
+			</td></tr></form></table>
+			<form method="post" action="admin.phtml">
+			<input type="hidden" name="admin" value="admin">
+			<input type="hidden" name="password" value="'; echo "$uid"; echo '">
+			</td><td width=520 valign=top>
+			<table width="520" border="1" cellspacing="0" cellpadding="3" bordercolor="#808080" bordercolorlight="black" bordercolordark="white">
+			<tr><td bgcolor="#0000A0"><font face="arial" size="2" color="white"><b>MLM Administration</b></td>
+			</tr><tr>
+			<td bgcolor="#C0C0C0" width="520" height="360" valign=top>
+			<br><font face="arial" size="2"><p>';
+			
+			if ($login == "1" || $option == "setup"):
+				else:
+				if (file_exists("setup/setup.phtml")):
+					include("setup/setup.phtml");
+				endif;
+			endif;
+
+			function goback () {
+				echo "<P><FORM><INPUT TYPE=BUTTON VALUE=\"Go Back\" onClick=\"history.go(-1)\"></form>";
+			}
+
+			function displaylist ($listadmin,$lists) {
+
+			$clientAr = array();
+			exec("ls '$listadmin' | grep \".phtml\"",$clientAr);
+			while (list($key,$val) = each($clientAr)) {
+			$curFile = $val;
+		
+			if (file_exists("$listadmin/$curFile")):
+	
+				include("$listadmin/$curFile");
+		
+			endif;
+	
+			$execAr = array();
+			exec("grep -c \"\" '$lists/$id.phtml'",$execAr);
+		 	$count = $execAr[0];	
+		
+			echo "<option value=\"$shortname\">$listname\n";
+		
+			}
+			}
+
+// SET UP
+
+if ($login == "1" || $adminoption == "setup"):
+
+	$GLOBALS[PATH_INFO] = ereg_replace("index.phtml","",$GLOBALS[PATH_INFO]);
+	$GLOBALS[PATH_TRANSLATED] = ereg_replace("/admin.phtml","",$GLOBALS[PATH_TRANSLATED]);
+
+	if ($sendmail == ""): $sendmail = "/usr/sbin/sendmail"; endif;
+	if ($url == ""): $url = "http://$GLOBALS[HTTP_HOST]$GLOBALS[PATH_INFO]"; endif;
+	if ($cgi == ""): $cgi = "mail.cgi"; endif;
+	if ($path == ""): $path = "$GLOBALS[PATH_TRANSLATED]"; endif;
+
+	$GLOBALS[HTTP_HOST] = ereg_replace("www.","",$GLOBALS[HTTP_HOST]);
+
+	if ($myemail == ""): $myemail = "webmaster@$GLOBALS[HTTP_HOST]"; endif;
+
+	echo "<input type=\"hidden\" name=\"check\" value=\"setup\">
+	<input type=\"hidden\" name=\"option\" value=\"setup\">";
+
+		if ($login == "1" || !file_exists("setup/setup.phtml")): 
+
+			if (!file_exists("setup/setup.phtml")):
+
+				$id1 = uniqid("");
+				$id2 = uniqid("");
+				$id3 = uniqid("");
+
+				exec("mkdir '$id1'");
+				exec("chmod 707 '$id1'");
+				exec("mkdir '$id2'");
+				exec("chmod 707 '$id2'");
+				exec("mkdir '$id3'");
+				exec("chmod 707 '$id3'");
+				exec("mkdir archives");
+				exec("chmod 707 archives");
+				exec("mkdir confirm");
+				exec("chmod 777 confirm");
+				exec("mkdir import");
+				exec("chmod 777 import");
+				exec("mkdir export");
+				exec("chmod 777 export");
+				exec("touch '$id1/index.html'");
+				exec("touch '$id2/index.html'");
+				exec("touch '$id3/index.html'");
+				exec("touch index.html");
+
+				$fileMessage = "<?\n";
+				$fileMessage .= "\$lists = \"$id1\";\n";
+				$fileMessage .= "\$listadmin = \"$id2\";\n";
+				$fileMessage .= "\$backup = \"$id3\";\n";
+				$fileMessage .= "?>";
+				$cartFile = fopen("setup/setup.phtml","w+");
+				fputs($cartFile,$fileMessage);
+				fclose($cartFile);		
+
+				exec("chmod 707 setup/setup.phtml");
+
+			else:
+
+				include("setup/setup.phtml");
+	
+			endif;
+
+			echo "Welcome to the PHP MultiList.
+			<P>The password was set. Now you will need to<BR>enter 
+			a few details about your server.<BR>Please complete the fields below.";
+		
+		else: 
+
+			echo "MulitList Manager Set Up";
+
+		endif;
+	
+	echo "<input type=\"hidden\" name=\"lists\" value=\"$id1$lists\">
+	<input type=\"hidden\" name=\"listadmin\" value=\"$id2$listadmin\">	
+	<input type=\"hidden\" name=\"backup\" value=\"$id3$listadmin\">	
+	
+	<P>Path to Sendmail *
+	<br><input type=\"text\" size=\"35\" name=\"sendmail\" value=\"$sendmail\">
+
+	<P>URL to PHP MultiList *
+	<br><input type=\"text\" size=\"35\" name=\"url\" value=\"$url\">
+
+	<P>Server Path to PHP MultiList *
+	<br><input type=\"text\" size=\"35\" name=\"path\" value=\"$path\">
+
+	<P>URL to mail.cgi
+	<br><input type=\"text\" size=\"35\" name=\"cgi\" value=\"$cgi\">
+
+	<P>Your Email (for security notifcation)
+	<br><input type=\"text\" size=\"35\" name=\"myemail\" value=\"$myemail\">
+
+	<P><input type=\"checkbox\" name=\"sm\" value=\"on\"";
+
+		if ($login == "1" || $sm == "on"): echo " checked"; endif;
+
+	echo "> View server messages
+
+	<p><font size=\"-2\">* Do not include a trailing slash for either.
+
+	<P><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+	<tr>
+		<td width=\"400\"><input type=\"submit\" value=\"Set Up List\"></td>
+	</form>
+	<form action=\"admin.phtml\" method=\"POST\">
+	<input type=\"hidden\" name=\"admin\" value=\"admin\">
+	<input type=\"hidden\" name=\"password\" value=\"$uid\">
+	<input type=\"hidden\" name=\"check\" value=\"setup\">
+	<input type=\"hidden\" name=\"option\" value=\"uninstall\">
+		<td><input type=\"submit\" value=\"Uninstall MLM\" onclick=\"if (!confirm('WARNING: Uninstall will remove ALL files in this directory. Do you want to continue?')) return false;\"></td>
+	</tr></form>
+	</table>";
+
+endif;
+
+// UNINSTALL
+
+if ($option == "uninstall"):
+
+	if (file_exists("setup/setup.phtml")):
+
+		include("setup/setup.phtml");
+
+		exec("rm -rf '$listadmin'");
+		exec("rm -rf '$lists'");
+		exec("rm -rf '$backup'");
+		exec("rm -rf archives");
+		exec("rm -rf confirm");
+		exec("rm -rf import");
+		exec("rm -rf export");
+		exec("rm -rf setup");
+		exec("rm -rf mode.phtml");
+		exec("rm -rf index.html");
+
+		echo "The MultiList Manager was successfully removed.<BR>You may now manually remove the set up files you have previously uploaded.";
+
+	else:
+
+		echo "The MultiList Manager could not be uninstalled because your <b>Set Up</b> file does not exist.<BR>Please run <b>Set Up</b> and then retry.";
+
+	endif;
+
+endif;
+
+// SET UP
+
+if ($option == "setup"):
+
+	if ($sendmail == "" || $url == "" || $myemail == ""):
+
+		echo "<P><b>Error!</b><p>Please ensure all fields are completed.";
+
+		goback();	
+
+	else:
+
+		echo "Thank you, the MultiList Manager is set up.";
+
+		$fileMessage = "<?\n";
+		$fileMessage .= "\$sendmail = \"$sendmail\";\n";
+		$fileMessage .= "\$url = \"$url\";\n";
+		$fileMessage .= "\$path = \"$path\";\n";
+		$fileMessage .= "\$cgi = \"$cgi\";\n";
+		$fileMessage .= "\$myemail = \"$myemail\";\n";
+		$fileMessage .= "\$sm = \"$sm\";\n";
+		$fileMessage .= "\$lists = \"$lists\";\n";
+		$fileMessage .= "\$listadmin = \"$listadmin\";\n";
+		$fileMessage .= "\$backup = \"$backup\";\n";
+		$fileMessage .= "?>";
+		$cartFile = fopen("setup/setup.phtml","w+");
+		fputs($cartFile,$fileMessage);
+		fclose($cartFile);
+
+	endif;
+
+endif;
+
+if ($login == "2"):
+
+	echo "Welcome back to the MultiList Manager.<BR>You are currently using Version $version.
+
+	<P><center><table width=\"400\" border=\"1\" cellspacing=\"0\" cellpadding=\"3\" bgcolor=\"White\" bordercolor=\"Black\" bordercolorlight=\"Black\" bordercolordark=\"Black\">
+	<tr>
+		<td><font face=\"arial\" size=\"2\">
+		<font color=\"red\">Server Messages</font><P>";
+
+	if ($sm == "on"):
+
+		include("http://www.webscriptworld.com/updates/mlm.phtml?v=$version&ref=$GLOBALS[HTTP_HOST]");
+
+	else:
+	
+		echo "Server messages are turned off.<br>Choose <b>Set Up</b> on the menu to turn on messages.";
+
+	endif;
+
+	echo "</td>
+	</tr>
+	</table></center>";
+
+endif;
+
+// CHANGE PASSWORD
+// PRE FORM
+
+if ($adminoption == "chng_passwd"):
+
+		echo "<input type=\"hidden\" name=\"check\" value=\"chng_passwd\">
+		<input type=\"hidden\" name=\"option\" value=\"chng_passwd\">
+		Old Password
+		<BR><input type=\"password\" name=\"oldpassword\">
+		<BR>New Password
+		<BR><input type=\"password\" name=\"password1\">
+		<BR>Retype New Password
+		<BR><input type=\"password\" name=\"password2\">
+		<P><input type=\"submit\" value=\"Change Password\">";
+		
+endif;
+
+// CHANGE PASSWORD
+// PROCESS FORM
+
+if ($option == "chng_passwd"):
+
+	$password = crypt($oldpassword, "salt");
+
+	include("setup/pw.phtml");
+
+		if ($password2 != "$password1" || $password2 == "" || $oldpassword == "" ||  $password != "$verify"):
+
+			echo "<P><b>Error!</b><br>";
+
+			if ($oldpassword == ""):
+
+				echo "<BR>Please enter the current password.";
+
+			elseif ($password != "$pw"):
+
+				echo "<BR>The current password you entered is incorrect.";
+
+			endif;
+
+			if ($password2 != "$password1" || $password1 = "" || $password2 == ""):
+
+				echo "<BR>The two passwords did not match.";
+	
+			endif;
+
+				goback();
+	
+		else:
+	
+		$passwd = crypt($password1, "salt");
+		
+		$fileMessage = "<? \$pw = \"$passwd\"; ?>";
+		$cartFile = fopen("setup/pw.phtml","w+");
+		fputs($cartFile,$fileMessage);
+		fclose($cartFile);
+		
+		echo "Thank you, the password was updated.";
+	
+	endif;
+
+endif;
+
+// ADD LIST - PRE
+
+if ($adminoption == "addlist"):
+
+	if (!file_exists("setup/setup.phtml") || $url == "" || $sendmail == ""):		
+
+		echo "The MultiList Manager is not yet set up.<P>Please select <b>Set Up</b> from the menu.";
+
+	else:
+
+		$GLOBALS[HTTP_HOST] = ereg_replace("www.","",$GLOBALS[HTTP_HOST]);
+
+		echo "<input type=\"hidden\" name=\"check\" value=\"addlist\">
+		<input type=\"hidden\" name=\"option\" value=\"addlist\">
+
+		<table border=\"0\" cellspacing=\"0\" cellpadding=\"2\">
+		<tr>
+			<td width=\"110\"><font face=\"arial\" size=\"2\">List Name:</td>
+			<td><input type=\"text\" name=\"listname\" size=\"30\" value=\"My Site\"></td>
+		</tr>
+		<tr>
+			<td width=\"110\"><font face=\"arial\" size=\"2\">Short Name:</td>
+			<td><input type=\"text\" name=\"shortname\" size=\"30\" value=\"mysite\"></td>
+		</tr>
+		<tr>
+			<td><font face=\"arial\" size=\"2\">From Address:</td>
+			<td><input type=\"text\" name=\"from\" size=\"30\" value=\"list@$GLOBALS[HTTP_HOST]\"></td>
+		</tr>
+		<tr>
+			<td><font face=\"arial\" size=\"2\">Generic Subject:</td>
+			<td><input type=\"text\" name=\"subject\" size=\"30\" value=\"News & Updates\"></td>
+		</tr>
+		<tr>
+			<td><font face=\"arial\" size=\"2\">Import List:</td>
+			<td>";
+
+		echo "<select name=\"import\" onchange=\"alert('Remember to Chmod 666 import files!')\">
+		<option>--- do not import ---";
+		exec("ls import",$resrAr);
+		while(list($key,$val) = each($resrAr)) {
+		echo "<option>".$val."\n";
+		}
+
+		echo "</select>
+		</td>
+		</tr>
+		</table>
+
+		<P><input type=\"checkbox\" name=\"unsub\" value=\"on\" checked> Include direct unsubscribe link
+		<br><input type=\"checkbox\" name=\"html\" value=\"on\" checked> Always send email as HTML
+		<br><input type=\"checkbox\" name=\"optin\" value=\"on\"> Subscribers must opt-in
+		<br><input type=\"checkbox\" name=\"optout\" value=\"on\"> Unsubscribers must opt-out
+
+		<P>Mail Template
+		<BR><textarea name=\"mheader\" cols=\"50\" rows=\"10\" wrap=\"PHYSICAL\"></textarea>
+
+		<P><table border=\"0\" cellspacing=\"0\" cellpadding=\"2\">
+		<tr>
+			<td width=\"110\"><font face=\"arial\" size=\"2\">Include Header:</td>
+			<td><font face=\"arial\" size=\"2\"><input type=\"text\" name=\"header\" size=\"30\">.phtml</td>
+		</tr>
+		<tr>
+			<td><font face=\"arial\" size=\"2\">Include Footer:</td>
+			<td><font face=\"arial\" size=\"2\"><input type=\"text\" name=\"footer\" size=\"30\">.phtml</td>
+		</tr>
+		</table>
+
+		<P><input type=\"submit\" value=\" Add List \">";
+
+	endif;
+
+endif;
+
+
+// ADD LIST - FINAL
+
+if ($option == "addlist"):
+
+	if ($option2 == "" &&  file_exists("$listadmin/$shortname.phtml")):
+	
+		echo "<b>Error!</b><P>A list name by this name already exists.";
+		goback();
+	
+	else:
+	
+		if ($listname == "" || $shortname == "" || $from == "" || $header != "" && !(file_exists("$header.phtml")) || $footer != "" && !(file_exists("$footer.phtml"))):
+	
+			echo "<b>Error!</b><BR>";
+	
+			if ($listname == ""): echo "<BR>Please enter a list name"; endif;
+			if ($shortname == ""): echo "<BR>Please enter a short name"; endif;
+			if ($from == ""): echo "<BR>Please enter a \"from\" address"; endif;
+			if ($header == ""): echo "<BR>Please enter a header file"; else: echo "<BR>The header file you entered could not be found on this server"; endif;
+			if ($footer == ""): echo "<BR>Please enter a footer file"; else: echo "<BR>The footer file you entered could not be found on this server"; endif;
+	
+			goback();
+	
+		else:
+	
+			$id = uniqid("");
+	
+			if ($option2 == "editlist"):
+	
+				exec("mv -f '$lists/$oldid.phtml' '$lists/$id.phtml'");
+				exec("rm -rf '$listadmin/$shortname2.phtml'");
+	
+				echo "Thank you, the changes were made.";
+	
+			else:
+	
+				if ($import == "--- do not import ---"):
+	
+					exec("touch '$lists/$id.phtml'");
+	
+				else:
+	
+					exec("mv -f 'import/$import' '$lists/$id.phtml'");
+		
+				endif;
+	
+				echo "Thank you, the list was set up.";
+	
+			endif;
+	
+			$mheader = ereg_replace("\"","&quot;",$mheader);
+			$listname = ereg_replace("\"","&quot;",$listname);
+			$from = ereg_replace("\"","&quot;",$from);
+			$subject = ereg_replace("\"","&quot;",$subject);
+	
+			$fileMessage = "<?\n";
+			$fileMessage .= "\$listname = \"$listname\";\n";
+			$fileMessage .= "\$shortname = \"$shortname\";\n";
+			$fileMessage .= "\$id = \"$id\";\n";
+			$fileMessage .= "\$from = \"$from\";\n";
+			$fileMessage .= "\$subject = \"$subject\";\n";
+			$fileMessage .= "\$unsub = \"$unsub\";\n";
+			$fileMessage .= "\$html = \"$html\";\n";
+			$fileMessage .= "\$optin = \"$optin\";\n";
+			$fileMessage .= "\$optout = \"$optout\";\n";
+			$fileMessage .= "\$mheader = \"$mheader\";\n";
+			$fileMessage .= "\$header = \"$header\";\n";
+			$fileMessage .= "\$footer = \"$footer\";\n";
+			$fileMessage .= "?>\n";
+			$cartFile = fopen("$listadmin/$shortname.phtml","w+");
+			fputs($cartFile,$fileMessage);
+			fclose($cartFile);
+	
+		endif;
+	
+		if ($option2 != "editlist"):
+
+			echo "<P>The HTML code below can be copied and pasted to your page to allow visitors to subscribe to your list.
+	
+			<P><textarea cols=\"60\" rows=\"8\">
+	
+<form method=\"post\" action=\"$url/subscribe.phtml\">
+<input type=\"hidden\" name=\"list\" value=\"$shortname\">
+<input type=\"text\" name=\"email\" size=\"25\"> 
+<input type=\"submit\" value=\"Subscribe\">
+</form>
+			</textarea>";
+
+		endif;
+	
+	endif;
+
+endif;
+
+// EDIT LIST - SELECT
+
+if ($adminoption == "editlist"):
+
+	echo "<input type=\"hidden\" name=\"check\" value=\"editlist\">
+	Please select a list to edit:
+
+	<P><select name=\"list\">";
+			displaylist($listadmin,$lists);
+	echo "</select>
+	<P><input type=\"submit\" name=\"option\" value=\"   Edit List   \"> 
+	<input type=\"submit\" name=\"option\" value=\"Delete List\" onclick=\"if (!confirm('Are you sure you want to delete this list?')) return false;\">";
+
+endif;
+
+// DELETE LIST
+
+if ($option == "Delete List"):
+
+	exec("rm -rf '$listadmin/$list.phtml'");
+	exec("rm -rf '$lists/$list.phtml'");
+
+	echo "<input type=\"hidden\" name=\"check\" value=\"editlist\">
+	The list was successfully deleted.";
+
+endif;
+
+// EDIT LIST - PRE
+
+if ($option == "   Edit List   "):
+
+	if (file_exists("$listadmin/$list.phtml")):
+
+		include("$listadmin/$list.phtml");
+
+		echo "<input type=\"hidden\" name=\"check\" value=\"editlist\">
+		<input type=\"hidden\" name=\"option\" value=\"addlist\">
+		<input type=\"hidden\" name=\"option2\" value=\"editlist\">
+		<input type=\"hidden\" name=\"shortname2\" value=\"$shortname\">
+		<input type=\"hidden\" name=\"oldid\" value=\"$id\">
+
+		<table border=\"0\" cellspacing=\"0\" cellpadding=\"2\">
+		<tr>
+			<td width=\"110\"><font face=\"arial\" size=\"2\">List Name:</td>
+			<td><input type=\"text\" name=\"listname\" size=\"30\" value=\"$listname\"></td>
+		</tr>
+		<tr>
+			<td width=\"110\"><font face=\"arial\" size=\"2\">Short Name:</td>
+			<td><input type=\"text\" name=\"shortname\" size=\"30\" value=\"$shortname\"></td>
+		</tr>
+		<tr>
+			<td><font face=\"arial\" size=\"2\">From Address:</td>
+			<td><input type=\"text\" name=\"from\" size=\"30\" value=\"$from\"></td>
+		</tr>
+		<tr>
+			<td><font face=\"arial\" size=\"2\">Generic Subject:</td>
+			<td><input type=\"text\" name=\"subject\" size=\"30\" value=\"$subject\"></td>
+		</tr>
+		</table>
+
+		<P><input type=\"checkbox\" name=\"unsub\" value=\"on\""; if ($unsub == "on"): echo " checked"; endif; echo "> Include direct unsubscribe link
+		<br><input type=\"checkbox\" name=\"html\" value=\"on\""; if ($html == "on"): echo " checked"; endif; echo "> Always send email as HTML
+		<br><input type=\"checkbox\" name=\"optin\" value=\"on\""; if ($optin == "on"): echo " checked"; endif; echo "> Subscribers must opt-in
+		<br><input type=\"checkbox\" name=\"optout\" value=\"on\""; if ($optout == "on"): echo " checked"; endif; echo "> Unsubscribers must opt-out
+
+		<P>Mail Template
+		<BR><textarea name=\"mheader\" cols=\"50\" rows=\"10\" wrap=\"PHYSICAL\">$mheader</textarea>
+
+		<P><table border=\"0\" cellspacing=\"0\" cellpadding=\"2\">
+		<tr>
+			<td width=\"110\"><font face=\"arial\" size=\"2\">Include Header:</td>
+			<td><font face=\"arial\" size=\"2\"><input type=\"text\" name=\"header\" size=\"30\" value=\"$header\">.phtml</td>
+		</tr>
+		<tr>
+			<td><font face=\"arial\" size=\"2\">Include Footer:</td>
+			<td><font face=\"arial\" size=\"2\"><input type=\"text\" name=\"footer\" size=\"30\" value=\"$footer\">.phtml</td>
+		</tr>
+		</table>
+
+		<P><input type=\"submit\" value=\"Save Changes\">";
+
+	else:
+
+		echo "No list exists for your selection";
+		goback();
+
+	endif;
+
+endif;
+
+
+// IMPORT/EXPORT - SELECT LIST
+
+if ($adminoption == "imex"):
+
+	echo "<input type=\"hidden\" name=\"check\" value=\"editlist\">
+	Please select a list:
+
+	<P><select name=\"list\">";
+		displaylist($listadmin,$lists);
+	echo "</select>
+	<P><input type=\"submit\" name=\"option\" value=\"Import\" onclick=\"if (!confirm('Are permissions on the import file set to 666?\\nIf not, Chmod the file now and then click OK.\\n\\nPlease also ensure you have named your file\\n'+this.form.list[this.form.list.selectedIndex].value+'.txt')) return false;\"> <input type=\"submit\" name=\"option\" value=\"Export\">";
+
+endif;
+
+// EXPORT LIST
+
+if ($option == "Export"):
+
+	// Upgrade only
+	exec("mkdir export"); exec("chmod 777 export");
+	// End upgrade
+
+	if (file_exists("$listadmin/$list.phtml")): include("$listadmin/$list.phtml"); endif;
+
+		exec("cp '$lists/$id.phtml' 'export/$shortname.txt'");
+		exec("chmod 666 'export/$shortname.txt'");
+		
+		echo "The list was successfully exported to <b>export/$shortname.txt</b>.";
+
+endif;
+
+// IMPORT LIST
+
+if ($option == "Import"):
+
+	if (file_exists("$listadmin/$list.phtml")): include("$listadmin/$list.phtml"); endif;
+
+		if (file_exists("import/$list.txt")):
+
+			exec(" mv -f 'import/$list.txt' '$lists/$id.phtml'");
+			exec("chmod 644 '$lists/$id.phtml'");
+		
+			echo "The list was successfully imported.";
+
+		else:
+
+			echo "<b>Error!</b><P>The import file you selected does not exist. To correct this problem make sure 
+				the file you have uploaded to your <b>import</b> directory has the same file name 
+				as the shortname you chose when you added the list. This will also be the name of 
+				the file if you exported it first.";
+	
+		endif;
+endif;
+
+// SENDMAIL - SELECT LIST
+
+if ($adminoption == "sendmail"):
+
+	echo "<input type=\"hidden\" name=\"check\" value=\"sendmail\">
+	<input type=\"hidden\" name=\"option\" value=\"sendmail\">
+	Please select the list to send mail to:
+	<P><select name=\"list\">";
+		displaylist($listadmin,$lists);
+	echo "</select>
+	<P><input type=\"checkbox\" name=\"inclhead\" value=\"yes\" checked> Include Template
+	<P><input type=\"submit\" value=\" Continue \">";
+	
+endif;
+
+// SENDMAIL - PRE
+
+if ($option == "sendmail"):
+
+	if (file_exists("$listadmin/$list.phtml")): include("$listadmin/$list.phtml"); endif;
+
+	exec("grep -c \"\" '$lists/$id.phtml'",$execAr);
+ 	$count = $execAr[0];	
+
+	// Upgrade only
+	if ($cgi == ""): $cgi = "mail.cgi"; endif;
+	// End upgrade
+
+	echo "<input type=\"hidden\" name=\"option\" value=\"crarchive\">
+	<input type=\"hidden\" name=\"list\" value=\"$list\">
+	<input type=\"hidden\" name=\"mail_prog\" value=\"$sendmail\">
+	<input type=\"hidden\" name=\"address_file\" value=\"$path/$lists/$id.phtml\">
+	<input type=\"hidden\" name=\"url\" value=\"$url\">
+	<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+	<tr>
+		<td width=\"85\"><font face=\"arial\" size=\"2\">From Name:</td>
+		<td><input type=\"text\" name=\"listname\" size=\"30\" value=\"$listname\"></td>
+	</tr>
+	<tr>
+		<td><font face=\"arial\" size=\"2\">From Email:</td>
+		<td><input type=\"text\" name=\"from\" size=\"30\" value=\"$from\"></td>
+	</tr>
+	<tr>
+		<td><font face=\"arial\" size=\"2\">Subject:</td>
+		<td><input type=\"text\" name=\"subject\" size=\"30\" value=\"$subject\"></td>
+	</tr>
+	</table>
+	<P><b>$count</b> Subscribers on list
+
+	<P>Message:<BR><textarea name=\"body\" cols=\"60\" rows=\"10\" wrap=\"PHYSICAL\">";
+
+	if ($inclhead == "yes"): echo "$mheader\n\n"; endif;
+
+	echo "</textarea>
+	<br><input type=\"checkbox\" name=\"unsubchk\" value=\"on\"";
+	if ($unsub == "on"): echo " checked"; endif;
+	echo "> Include unsubscribe instructions?
+
+	<br><input type=\"checkbox\" name=\"html\" value=\"on\"";
+	if ($html == "on"): echo " checked"; endif;
+	echo "> Send mail in HTML format
+
+	<P><input type=\"submit\" value=\"Send Mail\" onclick=\"this.form.action='$cgi'\"> <input type=\"submit\" value=\"Archive Message\">";
+
+endif;
+
+// ARCHIVE MESSAGE
+
+if ($option == "crarchive"):
+
+	$id = uniqid("");
+
+	$fileMessage = "<option value=\"$id\">$subject\n";
+	$cartFile = fopen("archives/$list.phtml","a+");
+	fputs($cartFile,$fileMessage);
+	fclose($cartFile);
+
+	$fileMessage = "$body";
+	$cartFile = fopen("archives/$id.phtml","a+");
+	fputs($cartFile,$fileMessage);
+	fclose($cartFile);
+
+	echo "The message was successfully archived.";
+
+endif;
+
+// VIEW SUBS - SELECT
+
+if ($adminoption == "viewsubs"):
+
+	echo "<input type=\"hidden\" name=\"check\" value=\"viewsubs\">
+	<input type=\"hidden\" name=\"option\" value=\"viewsubs\">
+	Please select a list to view:
+
+	<P><select name=\"list\">";
+	 displaylist($listadmin,$lists);
+	echo "</select>
+	<P><input type=\"submit\" value=\"View List\">
+
+	<P><table border=\"0\" cellspacing=\"0\" cellpadding=\"3\">
+	<tr>
+	<td><font face=\"arial\" size=\"2\"><b>List Name</b></td>
+	<td width=\"30\"></td>
+	<td><font face=\"arial\" size=\"2\"><b>Subscribers</b></td>
+	</tr>";
+
+	$clientAr = array();
+	exec("ls '$listadmin' | grep \".phtml\"",$clientAr);
+	while (list($key,$val) = each($clientAr)) {
+	$curFile = $val;
+
+	if (file_exists("$listadmin/$curFile")):
+
+		include("$listadmin/$curFile");
+
+	endif;
+
+	$execAr = array();
+	exec("grep -c \"\" '$lists/$id.phtml'",$execAr);
+ 	$count = $execAr[0];	
+
+	echo "<tr>
+	<td><font face=\"arial\" size=\"2\">$listname</td>
+	<td></td>
+	<td><font face=\"arial\" size=\"2\"><center>$count</td>
+	</tr>";
+
+	}
+
+	echo "</table>";
+
+endif;
+
+// VIEW SUBS
+
+if ($option == "viewsubs"):
+
+	if (file_exists("$listadmin/$list.phtml")):
+
+		include("$listadmin/$list.phtml");
+
+		exec("rm -rf '$lists/$id.tmp'");
+
+		set_time_limit(0);
+
+		echo "<input type=\"hidden\" name=\"check\" value=\"viewsubs\">
+		<input type=\"hidden\" name=\"option\" value=\"savesubs\">
+		<input type=\"hidden\" name=\"list\" value=\"$list\">
+		<input type=\"hidden\" name=\"id\" value=\"$id\">
+	
+		<P><textarea cols=\"45\" rows=\"14\" name=\"subs\">";
+		
+		exec("cat '$lists/$id.phtml' | sort | uniq > $lists/$id.tmp");
+
+		$namefile = "$lists/$id.tmp";
+		$fd = fopen( $namefile, "r" );
+		$subs = fread( $fd, filesize( $namefile ) );
+		fclose( $fd );
+
+		if ($subs == ""):
+
+			echo "There are no subscribers on the list.";
+
+			exec("mv -f '$lists/$id.tmp' '$lists/$id.phtml'");
+
+		else:
+
+			$fileMessage = "$subs";
+			$cartFile = fopen("$lists/$id.phtml","w+");
+			fputs($cartFile,$fileMessage);
+			fclose($cartFile);
+
+			echo "$subs";
+
+		exec("rm -rf '$lists/$id.tmp'");
+
+		endif;
+
+		exec("grep -c \"\" '$lists/$id.phtml'",$execAr);
+	 	$count = $execAr[0];
+
+		echo "</textarea>
+
+		<P><b>$count</b> Subscribers on list (after sorting)
+
+		<input type=\"hidden\" name=\"countold\" value=\"$count\">
+		<P><input type=\"submit\" value=\"Save Changes\">";
+
+
+	else:
+
+		echo "No list exists for your selection.";
+		goback();
+
+	endif;
+
+endif;
+
+
+// SAVE SUBS
+
+if ($option == "savesubs"):
+
+	if ($subs == "There are no subscribers on the list"): $subs = ""; endif;
+
+		$count=0;
+		$maxloop=5;
+		$finished=0;
+		while ($count<$maxloop&&!$finished) {
+			if (file_exists("$lists/$id.phtml")):
+
+				$fileMessage = "$subs";
+				$cartFile = fopen("$lists/$id.phtml","w+");
+				fputs($cartFile,$fileMessage);
+				fclose($cartFile);
+
+				$finished=1;
+
+			else:
+			
+				sleep(1);
+											
+			endif;
+			$count++;
+			}
+
+	exec("grep -c \"\" '$lists/$id.phtml'",$execAr);
+ 	$count = $execAr[0];
+
+	if ($countold > $count):
+		$rmcount = $countold - $count;
+	else:
+		$rmcount = $count - $countold;
+	endif;
+
+	if ($countold == ""): $countold = "0"; endif;
+
+	echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+			<tr>
+			<td><font face=\"arial\" size=\"2\"><b>$countold<BR>$count<BR>$rmcount</b></td>
+			<td width=\"10\"></td>
+			<td><font face=\"arial\" size=\"2\">Subscribers previously<BR>Subscribers saved<BR>Subscribers ";
+
+	if ($countold > $count):
+		echo "removed";
+	elseif ($countold == "$count"):
+		echo "added or removed";
+	else:
+		echo "added";
+	endif;
+
+			echo "</td>
+			</tr>
+			</table>";
+
+		exec("rm -rf '$lists/$id.tmp'");
+		exec("rm -rf '$backup/$lists'");
+		exec("cp -R '$lists' '$backup/$lists'");
+
+endif;
+
+// VIEW ARCHIVES - SELECT 1
+
+if ($adminoption == "viewarchives"):
+
+	echo "<input type=\"hidden\" name=\"check\" value=\"viewarchives\">
+	<input type=\"hidden\" name=\"option\" value=\"viewarchives\">
+
+	Please select an archive to view:
+
+	<P><select name=\"list\">";
+		displaylist($listadmin,$lists);
+	echo "</select>
+	<P><input type=\"submit\" value=\"View Archives\">";
+
+endif;
+
+// VIEW ARCHIVES - SELECT 2
+
+if ($option == "viewarchives"):
+
+	include("$listadmin/$list.phtml");
+
+	echo "<input type=\"hidden\" name=\"check\" value=\"viewarchives\">
+	<input type=\"hidden\" name=\"list\" value=\"$list\">
+
+	<P><b>$listname</b>
+	<P><select name=\"msg\">";
+	if (file_exists("archives/$list.phtml")): include("archives/$list.phtml"); endif;
+	echo "</select>
+	<P><input type=\"submit\" name=\"option\" value=\" View \"> <input type=\"submit\" name=\"option\" value=\"Delete\" onclick=\"if (!confirm('Are you sure you want to delete this message?')) return false;\">";
+
+endif;
+
+// VIEW ARCHIVES - VIEW
+
+if ($option == " View "):
+
+	echo "<textarea cols=\"55\" rows=\"15\">";
+		if (file_exists("archives/$msg.phtml")): include("archives/$msg.phtml"); endif;
+	echo "</textarea>";
+
+endif;
+
+// VIEW ARCHIVES - DELETE
+
+if ($option == "Delete"):
+
+	exec("rm -rf 'archives/$msg.phtml'");
+
+	$file = file("archives/$list.phtml");
+	$inFile = fopen("archives/$list.phtml","w");
+	$delete = $msg;
+	for ($i =0;$i < sizeof($file);$i++) {
+	if (strstr($file[$i],$delete)) {}
+	else {
+	fputs($inFile,$file[$i]);
+	}
+	}
+	fclose($inFile);
+
+	echo "The archived message was successfully deleted.";
+
+endif;
+
+// HTML FORMS - SELECT
+
+if ($adminoption == "htmlforms"):
+
+	echo "<input type=\"hidden\" name=\"check\" value=\"htmlforms\">
+	<input type=\"hidden\" name=\"option\" value=\"htmlforms\">
+	Please select a Subscribe form to generate:
+
+	<P><select name=\"list\">";
+		displaylist($listadmin,$lists);
+	echo "</select>
+	<P><input type=\"submit\" value=\"Generate HTML\">";
+	
+endif;
+
+
+// HTML FORMS - VIEW
+
+if ($option == "htmlforms"):
+		
+	if (file_exists("$listadmin/$list.phtml")):
+
+		include("$listadmin/$list.phtml");		
+
+		echo "<P>The HTML code below can be copied and pasted to your page to allow visitors to subscribe to your list.
+
+		<P><textarea cols=\"60\" rows=\"8\">
+
+<form method=\"post\" action=\"$url/subscribe.phtml\">
+<input type=\"hidden\" name=\"list\" value=\"$shortname\">
+<input type=\"text\" name=\"email\" size=\"25\"> 
+<input type=\"submit\" value=\"Subscribe\">
+</form>
+		</textarea>";
+
+	else:
+
+		echo "No list exists for your selection.";
+		goback();
+
+	endif;
+
+endif;
+
+
+// BACK UP - PRE
+
+if ($adminoption == "backup"):
+
+	echo "<input type=\"hidden\" name=\"check\" value=\"backup\">
+	<input type=\"hidden\" name=\"option\" value=\"backup\">
+	<b>Back Up Lists</b>
+	<P><input type=\"submit\" value=\"Generate Back Up\">
+	</form>
+	
+	<form action=\"admin.phtml\" method=\"POST\" enctype=\"multipart/form-data\" name=\"enter\">
+	<input type=\"hidden\" name=\"admin\" value=\"admin\">
+	<input type=\"hidden\" name=\"password\" value=\"$uid\">
+	<input type=\"hidden\" name=\"check\" value=\"backup\">
+	<input type=\"hidden\" name=\"option\" value=\"backup\">
+	<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"5000000\">
+
+	<P><b>Restore Back Up</b>
+	<P><b><i>Note:</i></b> Restoring a back up will remove all files currently in the directory.
+	<P><input type=\"file\" name=\"file\" size=\"20\">
+	<p><input type=\"submit\" name=\"option\" value=\"  Restore Back Up \">";
+	
+endif;
+
+// BACK UP - GENERATE
+
+if ($option == "backup"):
+
+	exec("tar cp * > '$backup/list_back_up.tar'");
+		
+	echo "Back Up successful";
+	echo "<P><a href=\"$backup/list_back_up.tar\">Download Back Up</a>
+	<P>For security purposes, once the download is complete click<br>below to remove 
+	the backup file from the server.
+
+	<P><input type=\"hidden\" name=\"check\" value=\"backup\">
+	<input type=\"hidden\" name=\"option\" value=\"delbackup\">
+	<input type=\"submit\" value=\"Delete Back Up\">";
+	
+endif;
+
+// BACK UP - RESTORE
+
+if ($option == "  Restore Back Up "):
+
+	if ($file == "none"):
+
+		echo "You must select the back up file from your hard drive.";
+		goback();
+
+	else:	
+
+		exec("rm -rf *");
+
+		copy($file, "list_back_up.tar");
+		unlink($file);
+		exec("chown 660 list_back_up.tar");
+	
+		exec("tar xp < list_back_up.tar");
+	
+		exec("rm -rf list_back_up.tar");
+
+		echo "The back up file was successfully restored.";
+
+	endif;
+
+endif;
+
+// BACK UP - DELETE
+
+if ($option == "delbackup"):
+
+	if (file_exists("$backup/list_back_up.tar")):
+
+		exec("rm -rf '$backup/list_back_up.tar'");
+
+		echo "Back Up successfully deleted.";
+
+	else:
+
+		echo "The Back Up file no longer exists.";
+
+	endif;
+
+endif;
+
+
+// FOOTER
+
+echo "</form></td></tr></table></td></tr></table></center>";
+
+// INVALID PASSWORD
+
+		else:
+		
+			if (file_exists("setup/check.phtml")):
+			$filename = "setup/check.phtml";
+			$fd = fopen( $filename, "r" );
+			$count = fread( $fd, filesize( $filename ) );
+			fclose( $fd );
+			endif;
+		
+			$newcount = $count + 1;
+		
+			$fileMessage = "$newcount";
+			$cartFile = fopen("setup/check.phtml","w+");
+			fputs($cartFile,$fileMessage);
+			fclose($cartFile);
+		
+			echo "<html><head>
+	      	<title>Admin Security Check</title>
+		  	</head><body>
+			<br><br><br><center>
+			<table width=280><tr><td width=280 valign=top>
+			<table width=\"280\" border=\"1\" cellspacing=\"0\" cellpadding=\"3\" bordercolor=\"#808080\" bordercolorlight=\"black\" bordercolordark=\"white\">
+			<tr><td bgcolor=\"#0000A0\">
+			<font face=\"arial\" size=\"2\" color=\"white\"><b>MLM Administration</b>
+			</td></tr><tr><td bgcolor=\"#C0C0C0\"><font face=\"arial\" size=\"2\">
+			<br><center>Your password is invalid.
+			<P><FORM><INPUT TYPE=BUTTON VALUE=\"Go Back\" onClick=\"history.go(-1)\"></form>
+			</td></tr></table>
+			</td></tr></table>
+			</center></body></html>";
+		
+		endif;
+
+	endif;
+
+endif;
+
+?>

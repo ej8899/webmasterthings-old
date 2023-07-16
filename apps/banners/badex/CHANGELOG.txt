@@ -1,0 +1,41 @@
+/////////////////////////////////////////////////
+//              phpBannerExchange              //
+//              A Free Script by:              //
+//                                             //
+// darkrose - darkrose@internetunderground.com //
+//       lazurus - lazurus@rustedgate.com      //
+//                                             //
+// Updates and future versions can be found at://
+// http://www.internetunderground.com/scripts/ //
+//                                             //
+// This script is covered under the GNU GPL.   //
+//                                             //
+// If you modify this script, please make your //
+// code available to us! We are not programmers//
+// by trade, so there's bound to be bugs and   //
+// inefficient code, but we're trying!         //
+/////////////////////////////////////////////////
+
+CHANGELOG
+---------
+1.2
+~Added jpg validation.  This *REQUIRES* PHP version 4.0.5 or better. It does *NOT* require GD to be enabled.  If you don't have php verison 4.0.5 or greater, you should use version 1.1.
+~Added an "Add Account" function to the admin control panel.
+~Added Cookies for anti-cheat functions.  The script still logs IPs in case it fails to log a cookie (The code seems to work on *ANY* security setting in IE6, Also been tested with NS 4.76, Whatever Mozilla version I downloaded on 4/25 for linux) and IE 5.5).
+~Added a basic install script to help people who don't know mySQL queries very well.
+~Fixed a couple of small bugs in the user control panel.  Seems I made the same error with the stats in 1.0 :)
+~Added the ability to specify the banner size in the config.php.  This is useful to anyone who would like to run a button exchange or smaller banners.
+---------
+1.1
+~Added a "view site" link on the admin edit page.
+~Added the ability to include a small (60x60) image to the left of the banner
+~Added a "Remove RAW HTML" button on the edit page
+~Added "Banner URL" input on signup page.  Users can not join unless they have a banner.
+~Added input checking for both banner url and site url fields on signup page.
+~Added netscape 4.xx support for viewing banners
+~Both admins and users can edit banner URLs from their respective control panels.
+~Fixed a small bug where the site clicks and the banner clicks were reported incorrectly on the admin edit page.
+~Cleaned up the HTML a little bit.
+---------
+1.0 
+Initial Release

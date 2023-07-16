@@ -1,0 +1,38 @@
+FOR USERS OF SYMPOLL 0.2.0 AND ABOVE:
+
+An upgrade detection script is built into the admin interface.  Upon
+going to the admin login page after upgrading your Sympoll files, a
+message will appear if any database upgrades are needed.  If no message
+appears, then the database structure has not changed from your version
+and nothing else needs to be done.  Versions of Sympoll earlier than
+0.2.0 cannot be upgraded correctly.  If you happen to be running a
+version older than 0.2.0, you will have to start over with a clean install.
+Also, YOU MUST KNOW WHAT VERSION OF SYMPOLL YOU ARE UPGRADING FROM!
+
+WARNING: If you are upgrading from 0.2.3 or earlier, then all of your admin
+logon names will be reset.  Sorry, there is no way around this.  No poll data
+should be lost.
+
+In order for an upgrade to succeed, your MySQL user must have these privileges
+for the Sympoll database: SELECT, INSERT, UPDATE, DELETE, ALTER, CREATE, DROP
+
+
+**************
+* TO UPGRADE *
+**************
+
+First it is important that you delete all of your old Sympoll files and then
+unpackage all of the new files.  Do not mix files between different versions.
+Furthermore, make sure you are logged out of your old administration page
+(actually select the logout option, don't just close your browser) before
+upgrading.
+
+Go to the URL of your admin directory.  Sympoll should detect that an upgrade
+is needed.  It will prompt you for the version of Sympoll that you are
+upgrading from.  BE SURE TO SELECT THE CORRECT VERSION!  
+
+A success message will appear once the upgrade is complete.  If there are any
+problems, the script will print a failure message and will stop.
+
+That's it!
+

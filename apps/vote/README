@@ -1,0 +1,285 @@
+/*----------------------.
+|:    S Y M P O L L    :|
+`----------------------*/
+
+
+Table Of Contents:
+
+a) Credits
+b) Quick Installation Instructions
+c) Important Post-Install Notes
+d) Troublshooting / FAQ
+e) Additional Sympoll Functionality
+   (extra goodies and usage)
+
+Upgrading?  Please read the provided UPGRADE file.
+
+
+/*-------------------------------------------------------------------------
+| A - Credits |
+`------------*/
+
+Sympoll is a web-based voting package that requires PHP and MySQL.
+Sympoll is written, designed, and maintained by David S. Raeman.  
+ralusp@ralusp.net, http://www.ralusp.net
+
+Administration authentication system was originally written by John 
+Donagher (john@webmeta.com) and has been modified by Robert Brim 
+(longwlkr@maxgaming.net) and David Raeman (ralusp@ralusp.net).  The 
+original version has been very heavily modified and used here with 
+permission.  
+
+
+/*-------------------------------------------------------------------------
+| B - Install |
+`------------*/
+
+=STEP 0=
+Be sure you have PHP3 or PHP4 (http://www.php.net) installed and working 
+correctly.  Also, you must have access to a MySQL database 
+(http://www.mysql.com) somewhere.  The database must already be created.
+Sympoll will create the necessary tables within the database.
+
+
+=STEP 1=
+Make sure you have a MySQL user set up that will work with this script.
+These are the minimum MySQL privileges needed:  
+SELECT, INSERT, UPDATE, DELETE, ALTER, CREATE, DROP
+
+
+=STEP 2=
+Place the entire Sympoll directory somewhere in your web path. 
+If you'd like to change the file extensions, you should do so now.
+Sympoll will "auto-detect" the file extensions, so you can change them
+to anything (for example .php3) without having to modify any of the
+code.  The only requirement is that all PHP files in Sympoll must have 
+the same extension.
+
+
+=STEP 3=
+Rename the "admin" directory to something else.  This is to prevent bad
+people on the web from guessing which directory the administration stuff 
+is in.  Be sure to just rename the directory itself, NOT the files within 
+the directory.
+
+
+=STEP 4=
+Your config.php file must be writeable by your web server.  Certain
+configurations, specifically some setups that use a CGI wrapper for PHP,
+already have this functionality.  Otherwise, the easiest method is to
+change the permissions on the file.  If you have shell access (telnet, ssh)
+then you can log in, switch to the main sympoll directory, and type
+
+  chmod 0666 ./config.php
+
+Otherwise, check your FTP client for a way to change permissions.  Most
+featureful clients support this.
+
+
+=STEP 5=
+Open up a web browser and go to the admin directory that you renamed in 
+step 3.  Please note that in order for the PHP to parse properly, you must 
+access it through HTTP, not as a local file.  If this is a new install, 
+Sympoll will guide you through the process needed to set up your initial 
+configuration file, your database tables, and your super admin logon.  It is 
+important that you remember this login-- it is needed to modify your 
+configuation and to create polls.
+
+
+=STEP 6=
+Setup is complete!  You now can log into the admin section with the username 
+and password that you just created.  From here, you can create, delete, 
+modify, and reset polls.
+
+
+/*-------------------------------------------------------------------------
+| C - Notes |
+`----------*/
+
+=NOTE 1=
+After placing Sympoll in your web path, be sure to browse to the admin page
+before leaving it alone.  The first time you visit the admin page you will
+automatically be navigated through the setup.  It is not advisable to leave
+this for other people to stumble upon and do.
+
+
+=NOTE 2=
+index.php is the only file included that is intended to be directly
+linked to.  It is a list of all polls that are turned on, and allows
+users to vote in any of them.  All other files will not work correctly
+when linked to with an <A HREF> tag, and are used internally by Sympoll.
+
+
+=NOTE 3=
+When you are logged into the admin page, if somebody else logs in with the 
+same admin name it will unauthenticate you and return you to the login screen.
+Then, when you try to log back in, it will unauthenticate them.  If you 
+anticipate multiple people may need to concurrently access the administration
+page, you will need to create multiple admin accounts.  Only the super admin 
+user (the first one created) will have access to add and remove other admin 
+accounts.
+
+
+/*-------------------------------------------------------------------------
+| D - FAQ |
+`--------*/
+
+=FAQ 1=
+Problem: I am installing Sympoll for the first time.  I enter my database
+ information, but it gives me an error saying "unable to connect to 
+ specified server."
+Answer: This means that either the database username, database password,
+ or database server is incorrect.  The specified database user must be
+ able to connect to the specified database before the setup will continue.
+
+
+=FAQ 2=
+Problem: I am installing Sympoll for the first time.  I enter my database
+ information, but it gives me an error saying "connected, but unable to
+ access database."
+Answer: This means that Sympoll was able to connect to the database server,
+ but was not able to use the specified database.  The database either does
+ not exist, or the specified user does not have access to use it.
+
+
+=FAQ 3=
+Problem: I am getting one of the following error messages:  "cannot 
+ open config file for writing" or "cannot write config file"
+Answer: Your web server is not able to write to the config.php file.
+ See installation "STEP 4" above.
+
+
+=FAQ 4=
+Problem: I installed without any problems and created a poll.  I copied
+ the code snippet directly as the admin section displayed it, but the
+ booth isn't showing up in my page!  If I view the source for the page
+ in my web browser, I can see the exact 2 lines of code that I copied.
+Answer: This means that your web server isn't parsing the PHP correctly
+ in that page.  This is usually because your web server only looks for
+ PHP commands in files that end in certain extensions.  This depends on
+ your web server configuration, but for PHP3 the file must usually end
+ in ".php3" and for PHP4 the file must usually end in either ".php" or
+ ".php3".  So, instead of putting the code in index.html you need to
+ put it in index.php or something similar.  Most web servers that have
+ PHP installed will let you use index.php or index.php3 as the 
+ "default" web page. 
+
+
+=FAQ 5=
+Problem: My web server uses PHP3, not PHP4.  What should I do?
+Answer: This script is entirely compatible with both PHP3 and PHP4.  
+ You just need to rename _ALL_ of the included files so that they end
+ in .php3 instead of .php.  See installation "STEP 2" above.
+
+
+=FAQ 6=
+Problem: Why is my poll giving the message "This poll has been disabled"
+ instead of showing the voting booth?
+Answer: The poll is disabled.  Go into the admin section, edit the poll
+ and change its status
+
+
+=FAQ 7=
+Problem: Everything works fine except the image bars in the results are
+ not showing up!  I used FTP to put them on my web page and I know that
+ the file I am using is in Sympoll's images directory.
+Answer: You probably uploaded the image(s) in ASCII mode instead of in BINARY
+ mode in your FTP program.  Files that end in (.jpg .gif .png .zip .gz) all
+ must be sent in BINARY mode (when using FTP) to work correctly.  This means
+ the entire customize/bar_imgs directory!  
+
+
+=FAQ 8=
+Problem: For some reason, the included config.php is empty!
+Answer: Yes, it is suppose to be empty when you first download Sympoll.
+ It will get filled in during the setup process.
+
+
+=FAQ 9=
+Problem: Help!  I have a problem that isn't answered _ANYWHERE_ in this file!
+Answer: No problem, you can either post a message on the Sympoll forum
+ (which is linked on my web page) or email me.  I read that forum 
+ frequently.  You can find my email address and web page address in 
+ Part "A" of this file.
+
+
+/*-------------------------------------------------------------------------
+| E - Extra |
+`----------*/
+
+=EXTRA 1=
+In addition to embedding a specific poll in a web page (instructions
+will be provided after modifying a poll in the admin page), it is also
+possible to display a RANDOM poll or to have it always display the LATEST
+poll (show the poll with the most recent timestamp).  To do so, insert the 
+appropriate code snippet from below.  Also, be sure that you always have 
+at least one poll created and open (toggled ON) if you plan on using 
+either of these:
+
+  <?php require '/path/to/sympoll/booth.php';
+  random_booth(); ?>
+
+  <?php require '/path/to/sympoll/booth.php';
+  newest_booth(); ?>
+
+Neither function will select a disabled or closed booth.  Also, please
+note that having more than one random poll on the same page is not currently
+supported and might not function properly.  Mixing one random poll with any
+number of non-random polls is okay AS LONG AS the random poll comes first.
+
+
+=EXTRA 2=
+By default, Sympoll directly prints the booth/results using PHP's echo.
+If you'd rather have Sympoll RETURN a string and echo nothing directly
+(for use in a template or something similar), see the comments at the very 
+end of the booth.php file.  If you aren't sure what this is talking about,
+then don't worry about it.  =)
+
+
+=EXTRA 3=
+If your website uses a language not included with Sympoll, you will want to
+edit customize/language/custom.php.  Replace the English words with their
+equivalent in your language.  Only change lines that begin with a dollar
+sign ($) and only change the value between the quotes (").  Next, log into
+the administration page, choose miscellany options, and set the language 
+to "<custom>".  You should not need to make any other modifications to the
+script to use a different language.  If you would like your language included
+in a future version of Sympoll, please email me a copy of your modified
+custom.php file.  Please make sure the translations are accurate and remember
+to tell me what the language is!  My email address can be found in "PART A"
+of this file.
+
+
+=EXTRA 4=
+If you'd like to customize the poll list page ("More Polls"), you will want
+to edit the customize/polllist/header.php and customize/polllist/footer.php
+files.  The stuff in the header.php file is included before the list of
+polls, and the stuff in the footer.php file is included after the list of
+polls.  If you'd like to change the colors used in the poll list, you will
+want to edit the <BODY> tag in the customize/polllist/header.php file.
+
+
+=EXTRA 5=
+Using SHTML for your web page instead of PHP?  Not a problem, here's an easy
+way to incorporate Sympoll into SHTML.  When the admin section gives you the
+snippet of PHP code, put that snippet in its own .php (or .php3) file.  Then
+in your .shtml file, just use a server-side include on the small .php file 
+that you just created. For example: <!--#include virtual="/sympoll/p1.php"-->
+
+If you get a message saying [an error occurred while processing this directive]
+there are a couple of things that could cause this error.  First, make sure
+that the path is correct.  If you are using a virtual include, the path should
+be the same as the path to the file in your web URL, not file system path.
+Second, make sure that the file exists and is readable.  If you take the path
+you used in the virtual include, add it to the end of your web page hostname
+and try to go to that address in your web browser, does it work?  If not, then
+you may want to check the above possibilities again.  Otherwise, your web
+hosting server probably does not allow you to ssi php files, even if ssi of
+other files is permitted.  Under apache, this is the case if the
+"IncludesNOEXEC" value is used in the "Options" directive.  You can try to
+override this by placing a file named .htaccess (with the period) in your main
+web directory and putting the line "Options Includes" in it without the quotes.
+If that doesn't work, contact your web host support and ask them whether they
+have blocked exec includes.  For more information about the "Options" directive
+used in apache, see  http://httpd.apache.org/docs/mod/core.html#options
+

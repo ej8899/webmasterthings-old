@@ -1,0 +1,131 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-gb">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Ace FormMail Script - Readme</title>
+<style type="text/css">a:link       { text-decoration: none }
+a:visited    { text-decoration: none }
+a:hover      { text-decoration: none }
+</style>
+<style fprolloverstyle>a:hover      { color: #ff0000 }
+</style>
+</head>
+
+<body link="#0000FF" vlink="#0000FF">
+
+<div align="center">
+  <center>
+  <table border="1" width="57%" bordercolor="#000000" cellspacing="0" cellpadding="3">
+    <tr>
+      <td width="100%" bgcolor="#FF0000">
+        <p align="center"><b><font color="#FFFFFF" face="Verdana">Ace Referer</font></b></td>
+    </tr>
+    <tr>
+      <td width="100%">
+        <p align="center"><b><i><font face="Verdana"><br>
+        Quick Menu</font><br>
+        </i><font face="Verdana" size="2"><a href="#copyright">Copyright</a><i><br>
+        </i><a href="#tos">Terms Of Use</a><br>
+        <a href="#howtoinstall">How to Install</a><br>
+        <a href="#faq">FAQ</a><br>
+        <a href="#support">Support</a></font><i><br>
+        </i></b></td>
+    </tr>
+    <tr>
+      <td width="100%"><font face="Verdana"><b><u><a name="copyright">Copyright</a>:</u></b></font>
+        <p><font face="Verdana" size="2"><b>Before you can use the Ace Referer,&nbsp;
+        you must;</b></font></p>
+        <p><font face="Verdana" size="2"><b>1) Agree that you will only use it
+        on your site.<br>
+        2) Not sell it, or 'give' the code to other people.<br>
+        3) Not hold Ace-Installer.com liable for any damages that may occur from
+        the use of our script.</b></font></p>
+        <p>&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="100%"><font face="Verdana"><b><u>How To <a name="howtoinstall">Install</a>:</u></b></font>
+        <p>Simply upload the script to your server. The create a HTML page, as
+        defined below with the appropriate information in;</p>
+        <p><font face="Verdana" size="2">There are several HIDDEN variables that
+        need to be defined. These are;</font></p>
+        <p><font face="Verdana" size="2"><b>subject</b> - This is the subject
+        you want to be sent out. This does not have to be hidden, but if you
+        want control over what the subject is, use a hidden tag Example HTML
+        code;</font></p>
+        <p><font size="1" color="#0000c0">&lt;<a href="mailto:input%20type=%22hidden%22%20name=%22recipient%22%20value=%22www@youradds.com">input
+        type=</a></font><a href="mailto:input%20type=%22hidden%22%20name=%22recipient%22%20value=%22www@youradds.com"><font size="1" color="#000000">&quot;hidden&quot;</font><font size="1" color="#0000c0">
+        name=</font><font size="1" color="#000000">&quot;subject&quot;</font><font size="1" color="#0000c0">
+        value=</font><font size="1" color="#000000">&quot;www@youradds.com</font></a><font size="1" color="#000000">&quot;</font><font size="1" color="#0000c0">&gt;</font></p>
+        <p><font face="Verdana" size="2"><b>count</b> - This needs to be a
+        numerical value (e.g 1,2,3 or 4). This will then define how many people
+        you are trying to send emails out to. Example HTML code;</font></p>
+        <p><font size="1" color="#0000c0">&lt;<a href="mailto:input%20type=%22hidden%22%20name=%22recipient%22%20value=%22www@youradds.com">input
+        type=</a></font><a href="mailto:input%20type=%22hidden%22%20name=%22recipient%22%20value=%22www@youradds.com"><font size="1" color="#000000">&quot;hidden&quot;</font><font size="1" color="#0000c0">
+        name=</font><font size="1" color="#000000">&quot;counter&quot;</font><font size="1" color="#0000c0">
+        value=</font><font size="1" color="#000000">&quot;2</font></a><font size="1" color="#000000">&quot;</font><font size="1" color="#0000c0">&gt;</font></p>
+        <p><font face="Verdana" size="2"><b>message</b> - This is obviously the
+        message that you want sent out in the emails. Again, as with the subject
+        is does not need to be a hidden tag, but you may want it as one so you
+        can control what is sent out. Example HTML code;</font></p>
+        <p><font size="1" color="#0000c0">&lt;<a href="mailto:input%20type=%22hidden%22%20name=%22recipient%22%20value=%22www@youradds.com">input
+        type=</a></font><a href="mailto:input%20type=%22hidden%22%20name=%22recipient%22%20value=%22www@youradds.com"><font size="1" color="#000000">&quot;hidden&quot;</font><font size="1" color="#0000c0">
+        name=</font><font size="1" color="#000000">&quot;message&quot;</font><font size="1" color="#0000c0">
+        value=</font><font size="1" color="#000000">&quot;my message can go here</font></a><font size="1" color="#000000">&quot;</font><font size="1" color="#0000c0">&gt;</font></p>
+        <p><font face="Verdana" size="2"><b>adminemail </b>- This is your email
+        address. It will be used as the From: part of the email. Example HTML
+        code;</font></p>
+        <p><font size="1" color="#0000c0">&lt;<a href="mailto:input%20type=%22hidden%22%20name=%22recipient%22%20value=%22www@youradds.com">input
+        type=</a></font><a href="mailto:input%20type=%22hidden%22%20name=%22recipient%22%20value=%22www@youradds.com"><font size="1" color="#000000">&quot;hidden&quot;</font><font size="1" color="#0000c0">
+        name=</font><font size="1" color="#000000">&quot;admin&quot;</font><font size="1" color="#0000c0">
+        value=</font><font size="1" color="#000000">&quot;webmaster@yoursssite.com</font></a><font size="1" color="#000000">&quot;</font><font size="1" color="#0000c0">&gt;</font></p>
+        <p><br>
+        <font face="Verdana" size="2">There are also a couple of text boxes that
+        need to exist for it to work correctly. These are identified below;</font></p>
+        <p><font face="Verdana" size="2"><b>person[x] -</b> This is the name of
+        the person they are refering. For example, if you had the option to send
+        to 2 people, you would have one box called person[1], and another called
+        person[2]. Example HTML code;</font></p>
+        <p><font size="1" color="#0000c0">&lt;input type=</font><font size="1" color="#000000">&quot;text&quot;</font><font size="1" color="#0000c0">
+        name=</font><font size="1" color="#000000">&quot;person[1]&quot;</font><font size="1" color="#0000c0">
+        size=</font><font size="1" color="#000000">&quot;20&quot;</font><font size="1" color="#0000c0">&gt;</font></p>
+        <p><font face="Verdana" size="2"><b>email[x] -</b> This is the email of
+        the person they are refering. For example, if you had the option to send
+        to 2 people, you would have one box called email[1], and another called
+        email[2]. Example HTML code;</font></p>
+        <p><font size="1" color="#0000c0">&lt;input type=</font><font size="1" color="#000000">&quot;text&quot;</font><font size="1" color="#0000c0">
+        name=</font><font size="1" color="#000000">&quot;email[1]&quot;</font><font size="1" color="#0000c0">
+        size=</font><font size="1" color="#000000">&quot;20&quot;</font><font size="1" color="#0000c0">&gt;</font></p>
+        <p>This is a complete example of how a working form should be set up.</p>
+        <form method="POST" action="http://www.ace-installer.com/ace_refer_demo/acereferer.php">
+          <p>Person 1 Name :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="person[1]" size="20"></p>
+          <p>Person 1 Email&nbsp; :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="email[1]" size="20"></p>
+          <p><br>
+          Person 2 Name :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="person[2]" size="20"></p>
+          <p>Person 2 Email&nbsp; :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="email[2]" size="20"></p>
+          <p>&nbsp;</p>
+          <p><input type="submit" value="Submit" name="B1"><input type="reset" value="Reset" name="B2"></p>
+          <input type="hidden" name="subject" value="Testing this"><input type="hidden" name="adminemail" value="webmaster@ace-installer.com"><input type="hidden" name="count" value="2"><input type="hidden" name="message" value="This is where your message would go...">
+        </form>
+        <p>&nbsp;</td>
+    </tr>
+  </center>
+  <tr>
+    <td width="100%"><font face="Verdana"><b><u><a name="support">Support</a>:</u></b></font>
+      <p><font face="Verdana" size="2"><b>If you ever need help with this
+      script, or find a bug, then please feel free to post a message at out
+      forum at <a href="http://forum.ace-installer.com">http://forum.ace-installer.com</a>.<br>
+      </b></font></p>
+    </td>
+  </tr>
+  </table>
+</div>
+<p align="center"><font face="Verdana" size="2">© <a href="http://www.ace-installer.com" target="_blank">Ace-Installer.com</a>.
+All Rights Reserved.<br>
+Script written by <a href="http://www.ace-installer.com" target="_blank">A.J.Newby</a></font></p>
+
+</body>
+
+</html>

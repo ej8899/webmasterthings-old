@@ -1,0 +1,208 @@
+// ********************************************************************
+//  NEWphpLinks Changelog
+// ********************************************************************
+
+// ********************************************************************
+//  v2.1.3.1  03/19/2003
+// ********************************************************************
+	Added capability for having one column for main category listing on main page.
+	
+// ********************************************************************
+//  v2.1.3  02/10/2003
+// ********************************************************************
+         Fixed security hole.
+
+// ********************************************************************
+//  v2.1.2.1a  02/10/2003
+// ********************************************************************
+
+        1) Nothing special and no script changes.
+        2) Annoucing new developer for PHPLinks.
+        3) Destiney is no longer involved as deverloper of PHPLinks.
+        UPDATE FILES ONLY
+        4) Upload revised files - admin/menu.php, main.php, index.php, validate.php
+        5) Upload revised file  -  include/common.php
+        6) Upload revised file  -  themes/footer.php
+
+// ********************************************************************
+//  v2.1.2 Release
+// ********************************************************************
+
+	Converted Related Categories.  An infinite number of associations may
+	now exist.  Be sure and run the proper upgrade script if you are upgrading.
+
+	Added 'Vertical' view option for subcategories.  Subcategories may now
+	be listed as a single column under it's parent category.
+
+	Added 'Reset Referrer IPs' option to Reset Counts Page.
+
+	Added 'Out Frame' option.  Enables outgoing referrers to be captured in a
+	frameset rather than appear in a new window.  Disable option added to
+	configuration page.
+
+	Added 'Visitors Online' stat to footer.
+
+	Fixed bugs.
+
+// ********************************************************************
+//  v2.1.1 Release
+// ********************************************************************
+
+	Added database managed sessions.  See session.php for more info.
+
+	Added styles to admin.
+
+	Fixed bugs.
+
+// ********************************************************************
+//  v2.1 Release
+// ********************************************************************
+
+	Added better category counting options.
+
+	Added DefaultCountry field.
+
+	Fixed Bugs.
+
+// ********************************************************************
+//  v2.1b Release
+// ********************************************************************
+
+	Added massive styles support.  Major help was contributed by Webtide,
+	Thanks alot!
+
+	Added netscape.css file for those who feel the need.  As far as the 
+	original theme, it's the same file as style.css.
+
+
+// ********************************************************************
+//  v2.03 Release
+// ********************************************************************
+
+        Fixed numerous bugs.
+
+// ********************************************************************
+//  v2.02 Release
+// ********************************************************************
+
+	Changed license. phpLinks now released under GNU GPL.
+
+	Added Flag system for link nationalization.
+
+	Fixed numerous bugs.
+
+// ********************************************************************
+//  v2.01 Release
+// ********************************************************************
+
+	Fixed numerous bugs.
+
+// ********************************************************************
+//  v2.0 Release
+// ********************************************************************
+
+	Improved data validation capabilities.
+
+	Created initial English language file (include/lang/).
+	Send translations to: webmaster@phplinks.org
+
+	Fixed numerous bugs.
+                                                                                                                                                                                           / ********************************************************************
+//  phpLinks Changelog
+// ********************************************************************
+
+// ********************************************************************
+//  v2.1.2.1a  02/10/2003
+// ********************************************************************
+
+        1) Nothing special and no script changes.
+        2) Annoucing new developer for PHPLinks.
+        3) Destiney is no longer involved as deverloper of PHPLinks.
+        UPDATE FILES ONLY
+        4) Upload revised files - admin/menu.php, main.php, index.php, validate.php
+        5) Upload revised file  -  include/common.php
+        6) Upload revised file  -  themes/footer.php
+
+// ********************************************************************
+//  v2.1.2 Release
+// ********************************************************************
+
+	Converted Related Categories.  An infinite number of associations may
+	now exist.  Be sure and run the proper upgrade script if you are upgrading.
+
+	Added 'Vertical' view option for subcategories.  Subcategories may now
+	be listed as a single column under it's parent category.
+
+	Added 'Reset Referrer IPs' option to Reset Counts Page.
+
+	Added 'Out Frame' option.  Enables outgoing referrers to be captured in a
+	frameset rather than appear in a new window.  Disable option added to
+	configuration page.
+
+	Added 'Visitors Online' stat to footer.
+
+	Fixed bugs.
+
+// ********************************************************************
+//  v2.1.1 Release
+// ********************************************************************
+
+	Added database managed sessions.  See session.php for more info.
+
+	Added styles to admin.
+
+	Fixed bugs.
+
+// ********************************************************************
+//  v2.1 Release
+// ********************************************************************
+
+	Added better category counting options.
+
+	Added DefaultCountry field.
+
+	Fixed Bugs.
+
+// ********************************************************************
+//  v2.1b Release
+// ********************************************************************
+
+	Added massive styles support.  Major help was contributed by Webtide,
+	Thanks alot!
+
+	Added netscape.css file for those who feel the need.  As far as the 
+	original theme, it's the same file as style.css.
+
+
+// ********************************************************************
+//  v2.03 Release
+// ********************************************************************
+
+        Fixed numerous bugs.
+
+// ********************************************************************
+//  v2.02 Release
+// ********************************************************************
+
+	Changed license. phpLinks now released under GNU GPL.
+
+	Added Flag system for link nationalization.
+
+	Fixed numerous bugs.
+
+// ********************************************************************
+//  v2.01 Release
+// ********************************************************************
+
+	Fixed numerous bugs.
+
+// ********************************************************************
+//  v2.0 Release
+// ********************************************************************
+
+	Improved data validation capabilities.
+
+	Created initial English language file (include/lang/).
+	Send translations to: webmaster@phplinks.org
+
+	Fixed numerous bugs.

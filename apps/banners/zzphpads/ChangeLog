@@ -1,0 +1,862 @@
+phpAdsNew - ChangeLog
+
+v 2.0beta7		+ Added configuration manager  (Matteo, 2001-11-04)
+			+ Added install and upgrade script  (Matteo and Niels, 2001-11-04)
+			+ Added support for different table types, such as InnoDB  (Niels, 2001-11-04)
+			+ Added logging for zone statistics  (Niels, 2001-11-18)
+			+ Added support for affiliates  (Niels, 2001-11-19)
+			+ Added logging of hourly statistics for compact stats  (Niels, 2001-11-21)
+			+ Added affiliate statistics  (Niels, 2001-11-25)
+			+ Added target based priority  (Niels and Matteo, 2001-11-25)
+			+ Added moving of banners, campaigns and zones  (Niels, 2001-12-01)
+			+ Added duplication of banners (Niels, thanks to Kelly Cochran, 2001-12-01)
+			+ Added ability to apply display limitations to other banners  (Niels, 2001-12-01)
+			+ Added new invocation type for popups/popunders  (Niels, 2001-12-02)
+			+ Added the ability to use beacon images for logging stats  (Niels, 2001-12-02)
+			+ Added the ability to convert hard-coded urls inside Flash banners  (Niels, 2001-12-18)
+			+ Added support for MFAA clickTAG's in Flash files  (Niels, 2002-01-09)
+			+ Added support for QuickTime, Real and Shockwave files  (Niels, 2002-01-09)
+			+ Added source statistics  (Wim, 2002-01-29)
+			+ Added monthly statistics  (Niels, 2002-02-03)
+			+ Added a log for actions taken during delivery and maintenance, which is also used to log all outgoing email  (Niels, 2002-02-11)
+			+ Added support for linking zones to campaigns  (Niels, 2002-02-14)
+			+ Added support to block logging for a specific time after a banner is displayed or was clicked on  (Niels, 2002-02-17)
+			+ Added linking of zones to campaigns  (Niels, 2002-02-20)
+			+ Added a new method of linking banners for sites with many banners  (Niels, 2002-02-20)
+		  	+ Added campaign overview page for advertisers  (Niels, 2002-02-24)
+			+ Added campaign auto-targeting when expiration set and adviews purchased  (Matteo, 2002-03-09)
+			+ Added the ability to change converted hard coded links inside Flash files  (Niels, 2002-03-14)
+			+ Added support for converting hard-coded urls in compressed Flash MX files  (Niels, 2002-03-21)
+			+ Added misc. maintenance options to the admin interface  (Niels, 2002-04-08)
+			+ Added the ability to check for newer versions of phpAdsNew  (Matteo, 2002-04-11)
+			+ Added the ability to change the target frame for each banner  (Niels, 2002-04-14)
+			+ Added new style JavaScript invocation, with the ability to prevent one banner from being displayed twice on one page  (Niels, 2002-04-30)
+			+ Added the ability to change the target frame for converted Flash banners (Niels, 2002-07-04)
+			+ During link conversion of Flash files, it is now possible to compress uncompressed files, even created by older versions of Flash  (Niels, 2002-07-04)
+			+ Added the ability to set a limit to the number of impressions for a specific user, aka. capping  (Niels, 2002-07-07)
+
+			+ Misc changes to library and function names
+			  - 2001-10-20:  Renamed nocache.inc.php to lib-cache.inc.php  (Niels) 
+			  - 2001-10-20:  Renamed acl.inc.php to lib-acl.inc.php  (Niels) 
+			  - 2001-10-20:  Renamed dblib.php to lib-db.inc.php	 (Niels) 
+			  - 2001-10-20:  Renamed db_* functions to phpAds_db*  (Niels) 
+			  - 2001-10-20:  Renamed acl_* functions to phpAds_acl*  (Niels) 
+			  - 2001-10-20:  Replaced mysql_* functions with phpAds_db* stubs  (Niels) 
+			  - 2001-10-27:  All config variables are now stored in one array  (Niels) 
+			  - 2001-10-27:  Changed the name of the database settings in config.inc.php  (Niels) 
+			  - 2001-10-27:  Made default values for settings in config.inc.php more consistent  (Niels) 
+			  - 2001-10-27:  Moved all includes inside view.inc.php to all invocation files  (Niels) 
+			  - 2002-02-06:  view.inc.php is now split into multiple libraries, so only code actually needed is included to achieve a big improvement in performance  (Niels) 
+			  - 2002-03-07:  Moved invocation code into lib-invocation.inc.php  (Matteo) 
+			  - 2002-04-01:	 Renamed campaign-index and zone-index  (Niels)
+			  - 2002-04-11:  Added a product string to lib-dbconfig, for easier porting  (Niels)
+			  - 2002-07-15:  Updated copyright headers of all files to include the year 2002  (Niels)
+
+			+ Misc changes
+			  - 2001-10-20:  Moved some functions around to make sure no unneeded functions were included during invocation.  (Niels) 
+			  - 2001-10-24:  Removed space from UNIQUE INDEX definition in all.sql  (Niels) 
+			  - 2001-10-24:  Added $phpads_proxy_lookup option  (Niels) 
+			  - 2001-10-25:  Removed path detection from config.inc.php, to prevent it from being executed twice  (Niels) 
+			  - 2001-10-25:  Added filter to make sure keywords are entered the right way  (Niels) 
+			  - 2001-11-04:  Added messages for empty lists of zones, stats and clients  (Niels) 
+			  - 2001-11-11:  Added a database compatibility mode, to solve potential problems when the database connection is shared with another product or script  (Niels) 
+			  - 2001-11-15:  Added width and height to the array returned by view_raw()  (Niels) 
+			  - 2001-11-15:  Added backwards compatibility for mixed case parameters  (Niels) 
+			  - 2001-11-16:  Added speed optimalisation, only associate array is used  (Niels) 
+			  - 2001-11-18:  Changed layout of section-tabs  (Niels) 
+			  - 2001-11-22:  Added names in from and to headers when sending e-mails  (Matteo) 
+			  - 2001-11-25:  Added error message for possible exploit  (Niels) 
+			  - 2001-11-28:  Added support for compact stats to hourly stats page  (Niels) 
+			  - 2001-12-01:  Added application title to page title  (Niels) 
+			  - 2001-12-01:  Renamed some pages to make it more logical  (Niels) 
+			  - 2001-12-01:  Changed the icons of acls and activate/deactivate  (Niels) 
+			  - 2001-12-02:  Added return url to all delete actions  (Niels) 
+			  - 2001-12-02:  Added error message to 'Link banners' page  (Niels) 
+			  - 2001-12-03:  Iframes can now automatically resize to the banner dimensions  (Niels) 
+			  - 2001-12-03:  Iframes can now be transparent  (Niels) 
+			  - 2001-12-11:  Impression prediction tries to better compensate limited time peaks  (Matteo) 
+			  - 2001-12-11:  Added a better priority calculation when no targeted campaign is present  (Matteo) 
+			  - 2001-12-11:  Added additional indices to the statistic tables  (Niels) 
+			  - 2001-12-11:  Optimized queries for generating the statistics  (Niels) 
+			  - 2001-12-12:  Changed preview of HTML banners  (Niels) 
+			  - 2001-12-14:  The first field of the login interface is now automatically focused (Jules Sotheby) 
+			  - 2001-12-15:  Added prev/next buttons to the statistics  (Niels) 
+			  - 2001-12-16:  Priority is recalculated when a users changes a banner or campaign  (Niels) 
+			  - 2001-12-16:  Added ability to duplicate webserver stored banners  (Niels) 
+			  - 2001-12-26:  Split banner image to a seperate table for speed up  (Niels) 
+			  - 2001-12-26:  Added cache for HTML generated during delivery  (Niels) 
+			  - 2002-01-17:  Added a file-stored "table_prefix" configuration variable and updated all occurrencies of the old "tbl_prefix"  (Matteo) 
+			  - 2002-01-26:  Added warning for overwriting existing tables during installation  (Niels) 
+			  - 2002-01-27:  Table orderdirection and listorder are now stored inside the session  (Niels) 
+			  - 2002-01-27:  Campaign statistics table now uses the same interface for sorting  (Niels) 
+			  - 2002-01-27:  Misc changes to the GUI of banner generators and banner linking  (Niels) 
+			  - 2002-01-27:  Added preliminary support for right-to-left languages  (Noor Dawod, Niels) 
+			  - 2002-01-27:  Added the language flag to config.inc.php (Stefan) 
+			  - 2002-02-03:  Moved weekly stats to the history pages and it is now every object which has a history page, instead of campaigns only  (Niels) 
+			  - 2002-02-03:  Added graphs to every history page  (Niels) 
+			  - 2002-02-06:  Optimised ignore_hosts function so only two regular expressions are used in total, instead of 3 for each listed host.  (Niels) 
+			  - 2002-02-11:  Added general library for sending email  (Niels) 
+			  - 2002-02-11:  Moved deactivation warning to a seperate library  (Niels) 
+			  - 2002-02-11:  Added support for GZIP content encoding of the admin interface  (Niels) 
+			  - 2002-02-18:  Changed behavoir of the 'Save Changes' button  (Niels) 
+			  - 2002-02-18:  Removed 'banner retrieval method' settings  (Niels) 
+			  - 2002-02-22:  Renamed Clients to Advertisers and Affiliates to Publishers  (Niels) 
+			  - 2002-02-22:  Cleaned up the language files  (Niels) 
+			  - 2002-02-23:  Added missing shortcuts for publisher pages  (Niels) 
+			  - 2002-02-24:  Added ability to delete all campaigns of a client  (Niels) 
+			  - 2002-02-24:  Added ability to activate/deactivate all banners of a campaign  (Niels) 
+			  - 2002-02-24:  Added <img> invocation to <iframe> invocation type for browser compatibility  (Niels) 
+			  - 2002-02-25:  Added ability to delete all banners of a campaign  (Niels) 
+			  - 2002-03-04:  Added 'url' and 'clientid' to view_raw result array  (Matteo) 
+			  - 2002-03-06:  Added more information to Priority page  (Niels) 
+			  - 2002-03-07:  Added XML-RPC invocation  (Matteo) 
+			  - 2002-03-07:  Added AdLayers invocation with plug-in styles  (Matteo) 
+			  - 2002-03-09:  Changed lib-priority to skip profiling when no high-pri present and added some more information to debuglog for better tracing  (Matteo) 
+			  - 2002-03-09:  Added new language file for invocations  (Matteo) 
+			  - 2002-03-12:  Added new way to check if a form has the correct values  (Niels) 
+			  - 2002-03-17:  Added next / prev buttons to the userlog  (Niels) 
+			  - 2002-03-19:  phpadsnew.inc.php can now be included more than once without generating errors  (Niels) 
+			  - 2002-03-19:  phpAds_config is not automatically globalized in case it is called from a function  (Niels) 
+			  - 2002-03-19:  Updated HTML code to support Flash MX  (Niels) 
+			  - 2002-03-23:  Campaign selection is now default type of linking zones to banners  (Niels) 
+			  - 2002-03-24:  Added unique id (n) to every generated invocation code  (Niels) 
+			  - 2002-03-24:  Changed random seed to include a part of the n parameter  (Niels) 
+			  - 2002-03-25:  Added the ability to duplicated zones  (Niels) 
+			  - 2002-03-25:  Added sorting of items shown in the navigation  (Niels) 
+			  - 2002-03-27:  Optimized BannerInZone and CampaignInZone  (Niels) 
+			  - 2002-03-28:  Added optional patch for systems with a local qmail as SMTP deamon  (Matteo) 
+			  - 2002-03-28:  Made version number less visible  (Niels) 
+			  - 2002-03-28:  Added the ability to rebuild the zonecache and imageurl's  (Niels)
+			  - 2002-04-01:  Added warning to statistics pages when there are not stats available  (Niels)
+			  - 2002-04-01:  Added Campaign Overview page to the statistics  (Niels)
+			  - 2002-04-01:  Changed hierarchy of the campaign and banner statistic pages  (Niels)
+			  - 2002-04-06:  Added a workaround for IE own bug when loading external JS into a popup  (Niels, Matteo)
+			  - 2002-04-09:  Rewrote part of lib-priority to always assign a priority > 0 to low-pri campaigns  (Matteo)
+			  - 2002-04-15:  Added ability to override frame targets even if no target is specified in HTML banner  (Niels)
+			  - 2002-04-19:  Rewritten verbose stats convertor, now available from the maintenance menu  (Niels)
+			  - 2002-04-30:  Added better support for different versions of Flash plugins, phpAdsNew won't ask for the latest version of the plugin when the .swf file is created in an older version  (Niels)
+			  - 2002-05-02:  Split zones into three different types: Banner, Interstitial and Popups  (Niels)
+			  - 2002-05-02:  Updated user interface of the bannercode generator  (Niels)
+			  - 2002-05-02:  Resize Iframe option of bannercode generator is hidden when zone is on different server  (Niels)
+			  - 2002-05-02:	 Updated iframe bannercode to include ilayer for Netscape 4 support  (Niels)
+			  - 2002-05-02:  Removed combined remote invocation from bannercode generator because new Javascript and Iframe support are both 100% browser compatible  (Niels)
+			  - 2002-05-03:  Added configuration settings to hide invocation types from the users  (Niels)
+			  - 2002-05-04:  Added extra option to local mode invocation generator for preventing a banner to be displayed twice on one page  (Niels)
+			  - 2002-05-04:  Added option to local mode invocation generator for generating view_raw() based template compatible code  (Niels)
+			  - 2002-05-06:  Changed generated HTML to make it more compatible with W3C standards  (Niels)
+			  - 2002-05-06:  Added wildcard support to source display limitation  (Niels)
+			  - 2002-05-07:  Speed optimalisations for display limitations  (Niels)
+			  - 2002-05-08:  Made source field for statistics a bit larger  (Niels)
+			  - 2002-05-08:  Speed optimalisations for keyword direct selection  (Niels)
+			  - 2002-05-08:	 Added support for zones inside multi-expression direct selection strings  (Niels)
+			  - 2002-05-09:  Added the ability to chain multiple zones together, in case one zone can't deliver any banners  (Niels)
+			  - 2002-05-09:  Added the ability to add a popup invocation code to a regular zone  (Niels)
+			  - 2002-05-09:  Banners can now have a time limit, which means the banner will only be displayed once in that timeframe  (Niels)
+			  - 2002-05-09:  More speed optimalisations for display limitations. Limitations are not pre-compiled and cached, so no extra datbase queries are needed  (Niels)
+			  - 2002-05-09:  Changed path of block cookies to make sure they also work with local mode invocation on the same server  (Niels)
+			  - 2002-05-15:  Zones linked to campaigns are now also shown on the banner's linked zones page, but can not be modified  (Niels)
+			  - 2002-05-16:  Banners are now selected when switching from linking zones to campaigns to linking zones to banners  (Niels)
+			  - 2002-05-27:  Changed profile prediction to use data from more days, rather than the same weekday of the last week. This data is then weighted using gaussian distributions  (Matteo)
+			  - 2002-06-02:  Included switch to turn on Netscape 4 compatible ilayers during iframe invocation generation  (Niels)
+			  - 2002-06-02:  Added 'Expand all / Collapse all' buttons to advertiser overview and publisher overview  (Niels)
+			  - 2002-06-05:  Added language specific separator for thousands and decimals  (Niels)
+			  - 2002-06-05:  Changed the alignment of most columns in the statistics to the right, for better readability  (Niels)
+			  - 2002-06-07:  Added total of the period in email reports  (Matteo)
+			  - 2002-06-12:	 Added check for MySQL user privileges before upgrading  (Niels)
+			  - 2002-07-06:  Added display of file size to banner properties  (Niels)
+			  - 2002-07-07:  Increased maximum length of target parameter on banner properties page to 16 chars  (Niels)
+			  - 2002-07-14:  Added ability to hide inactive items from overviews  (Niels)
+			  - 2002-07-14:  Added hidden configuration setting to disable the user interface  (Niels)
+			  - 2002-07-15:  Updated some of the icons to make them better looking  (Niels)
+			  - 2002-07-17:  Added ability to clear all the limitations of one banner all at once  (Niels)
+			  - 2002-07-19:  Added floater and cursor floating dhtml layerstyles  (Matteo, Niels)
+
+
+			+ Misc bugfixes
+			  - 2001-10-17:  Removed extra comma from config.inc  (Matteo) 
+			  - 2001-10-19:  Removed background color for flash banner; lets see if it's better... (Stefan) 
+			  - 2001-10-22:  Fixed bug which prevented IP/hostname detection for ACLs, ignored hosts and logging when 'x-http-forwarded-for' header was set to 'unknown' by the proxy  (Matteo) 
+			  - 2001-10-24:  Fixed warning 'No DB connection'  (Niels) 
+			  - 2001-10-24:  Destination cookie sometimes had wrong value  (Niels) 
+			  - 2001-10-26:  AdClick history for mailed reports was limited to 7 days  (Niels) 
+			  - 2001-10-27:  Fixed duplicate dblib include and phpAds_path problem  (Niels) 
+			  - 2001-11-02:  Database connection will always be kept open, because it might be shared with another script  (Niels) 
+			  - 2001-11-02:  phpAds_path problem fixed when using the maintenance script  (Niels) 
+			  - 2001-11-02:  Made phpAds_path available to admin files  (Niels) 
+			  - 2001-11-02:  Fixed misc. E_ALL warnings  (Niels) 
+			  - 2001-11-09:  Target was replaced in HTML banners, even if the new target was empty  (Niels) 
+			  - 2001-11-10:  Link to ACL page was shown even if they were disabled  (Niels) 
+			  - 2001-11-10:  Removed extra return at the end of the banner-edit.php file  (Niels) 
+			  - 2001-11-16:  Zonecache still included banners  (Niels) 
+			  - 2001-11-16:  Zones admin files needed view.inc.php include: added it to lib-zones  (Matteo) 
+			  - 2001-11-17:  Changed \n to \r\n in e-mail headers  (Niels) 
+			  - 2001-11-18:  Fixed some left old style config vars in lib-expire (Matteo) 
+			  - 2001-11-20:  Added missing website field in all.sql (Matteo) 
+			  - 2001-11-21:  Total Statistic in mailed reports now only use the selected statistics type, instead of using both compact and verbose  (Niels) 
+			  - 2001-11-21:  Logging didn't work correctly because affected rows function did not return the correct value  (Niels) 
+			  - 2001-11-22:  E-mails were sent twice when using qmail as SMTP server   (Matteo) 
+			  - 2001-11-22:  Removed extra \r\n at the end of e-mail headers   (Matteo) 
+			  - 2001-11-29:  Fixed a bug when not collapsing the latest expanded item in affiliate-, client- and stats-index.php   (Matteo) 
+			  - 2001-11-30:  Added missing link to logout image   (Matteo) 
+			  - 2001-11-30:  Database host specified during install was ignored   (Matteo) 
+			  - 2001-11-30:  Table prefix was ignored when installing affiliates table   (Matteo) 
+			  - 2001-12-02:  Days with stats only for hour 0 were not shown in stats-daily left bar   (Matteo) 
+			  - 2001-12-02:  Added workaround for Netscape 4.x problem with adjs.php  (Niels) 
+			  - 2001-12-05:  HTML banners rendering in the interface was alse splitting HTML entities  (Matteo) 
+			  - 2001-12-05:  HTML entities in translations were not supported into settings SELECTS/OPTIONS  (Matteo) 
+			  - 2001-12-09:  Ignored hosts were logged when using two or more banners whitin local invocation  (Matteo) 
+			  - 2001-12-11:  Removed form validation problem when adding switching a campaign to targeted mode  (Matteo) 
+			  - 2001-12-16:  Fixed webserver stored banner cleanup problem  (Niels) 
+			  - 2001-12-18:  Removed the background color parameter for Flash banner previews  (Niels) 
+			  - 2001-12-22:  Clients couldn't activate banners using the client interface  (Toni Garcia) 
+			  - 2001-12-22:  Calculating priority without campaigns or banners led to php errors  (Matteo) 
+			  - 2001-12-31:  Misc fixes to priority calculation without high priority banners  (Niels) 
+			  - 2002-01-08:  An sql error was showing instead of the normal "wrong password" warning when upgrading from a pre-affiliates install  (Matteo) 
+			  - 2002-01-09:  Removed old "banner" field from a query in stats-campaigns.php  (Matteo) 
+			  - 2002-01-09:  Displaying weekly stats of an empty campaing produced an SQL error  (Matteo) 
+			  - 2002-01-09:  NoStats message was wrong in global and campaign related weekly stats  (Matteo) 
+			  - 2002-01-09:  Removed useless weeks selector when no stats are present in weekly stats  (Matteo) 
+			  - 2002-01-10:  Lib-priority wrongly used prediction when all active high-pri campaigns are empty (i.e. after creating the first high-pri campaign). The same happened if all the banners in high-pri campaigns were not active  (Matteo) 
+			  - 2002-01-16:  Priority wasn't rescheduled when changing start/expiration date of campaings  (Matteo) 
+			  - 2002-01-17:  Install saved default name for images table in configuration instead of actual name  (Matteo) 
+			  - 2002-01-17:  Upgrades from pre-configmanager releases didn't show the graphical logo  (Matteo) 
+			  - 2002-01-17:  Upgrade process was using default name for missing tables, this could lead to table sharing between installs using the same database  (Matteo) 
+			  - 2002-01-17:  Replaced "random_retrieve" with "retrieval_method" into help files  (Matteo) 
+			  - 2002-01-26:  Header and Footer settings should work again  (Niels) 
+			  - 2002-02-03:  Language selection always showed 'Default'  (Niels) 
+			  - 2002-02-03:  Language in the affiliate interface is now directy changed  (Niels) 
+			  - 2002-02-03:  Password fields are now not readable when creating a client or affiliate  (Niels) 
+			  - 2002-02-05:  Fixed bug #513270 [ Netscape 6.2.1 incompatibility? ] in campaing-edit  (Matteo) 
+			  - 2002-02-06:  Calling the view() function twice with database compatibility mode fixed  (Niels) 
+			  - 2002-02-18:  Fixed re-appeared bug when not collapsing the latest expanded item in stats-global-affiliates.php  (Matteo) 
+			  - 2002-02-18:  Fixed bug when resolving was made by http server and reverse_lookup off  (Matteo) 
+			  - 2002-02-24:  Increased the size of the zone cache  (Niels) 
+			  - 2002-02-24:  Moving a banner or campaign to an nonexisting parent no longer results in an empty page  (Niels) 
+			  - 2002-02-28:  Fixed quote problem in uploaded file names  (Niels) 
+			  - 2002-03-10:  Added default return url to delete actions  (Niels) 
+			  - 2002-03-19:  phpAds_path constant was wrong in admin insterface, install, upgrade and maintenence when no __FILE__ constant available  (Matteo) 
+			  - 2002-03-19:  Names and descriptions now can contain quotes and double quotes (Niels) 
+			  - 2002-03-19:  Fixed slash problem in urls with adclick.php  (Niels) 
+			  - 2002-03-19:  Resolved many E_ALL problems  (Niels) 
+			  - 2002-03-19:  Database compatibility mode problems fixed  (Niels) 
+			  - 2002-03-19:  phpads_images table is now correctly create with the InnoDB table type  (Niels) 
+			  - 2002-03-21:  Monthly history now also works with compact stats  (Niels) 
+			  - 2002-03-22:  Changed zonename field size to 245, increasing compatibility with MySQL 3.22.x  (Matteo) 
+			  - 2002-03-23:  Fixed primary key problem for adstats table  (Niels) 
+			  - 2002-03-23:  Width and height weren't added to invocation code during generation  (Niels) 
+			  - 2002-03-24:  First linked banner or campaign added an extra comma to zone contents  (Niels) 
+			  - 2002-03-24:  Campaigns with no matching banner were not shown as linked in zone  (Niels) 
+			  - 2002-03-24:  Zonetype was not saved when adding banners or campaigns to a zone  (Niels) 
+			  - 2002-03-24:  Too many campaigns were shown in the navigation (Niels)
+			  - 2002-03-24:  Zone cache update now happens after priority is recalculated  (Niels) 
+			  - 2002-03-25:  Made a couple of regular expressions in lib-banner.inc.php more compatible  (Niels) 
+			  - 2002-03-26:  Fixed malfunctioning auto target recalculation  (Niels) 
+			  - 2002-03-27:  Priority recalculation from admin interface didn't create an userlog entry  (Matteo) 
+			  - 2002-03-27:  Rewrote Javascripts in campaign-zone and banner-zone to make them usuable when a large number of zones are defined  (Niels) 
+			  - 2002-03-28:  Improved rendering of subtabs in Mozilla  (Niels) 
+			  - 2002-03-30:  Added source to Flash ClickTAG  (Niels)
+			  - 2002-03-30:  Path detection during install on IIS fixed  (Niels)
+			  - 2002-03-30:  Fixed MS Exchange problem when sending email  (Niels)
+			  - 2002-03-31:  Duplicated zones now have an unique name  (Niels)
+			  - 2002-03-31:  Fixed errors when no banner networks were present  (Niels)
+			  - 2002-04-01:  Fixed report checkboxes on the advertiser properties page  (Niels)
+			  - 2002-04-01:  Fixed misc. E_ALL warnings  (Niels)
+			  - 2002-04-02:  Source statistics now work properly for compact statistics  (Niels)
+			  - 2002-04-08:  The popup was being opened even when no banner was fetched  (Matteo)
+			  - 2002-04-14:  Mixing zones and direct selection with the view() function is now possible  (Niels)
+			  - 2002-04-14:  Adlayer is now IE, Mozilla and Opera compatible  (Matteo & Niels)
+			  - 2002-04-15:  Fixed no cookie / no database connection errors  (Niels)
+			  - 2002-04-16:  Not all views and clicks were displayed on the daily stats  (Niels)
+			  - 2002-04-19:  Changed phpAds_path detection  (Niels)
+			  - 2002-04-19:  Last modified header in lib-cache.inc.php caused problems in Opera  (Niels)
+			  - 2002-04-19:  Expire header in lib-cache.inc.php caused problems in Netscape  (Niels)
+			  - 2002-04-28:  Fixed some remaining E_ALL errors  (Niels)
+			  - 2002-05-02:  Fixed problem which caused HTML to be mangled when target= was part of an URL  (Niels)
+			  - 2002-05-02:  Moving zones now works again  (Niels)
+			  - 2002-05-02:  Multiple simple adlayers on one page now don't interfere with each other anymore  (Niels)
+			  - 2002-05-02:  HTML banners were displayed without slashes  (Niels)
+			  - 2002-05-02:  Upgrade script forgot to remove unneeded slashes from HTML banners  (Niels)
+			  - 2002-05-04:	 If no banners are linked to a zone, the update of linked banners is now saved  (Niels)
+			  - 2002-05-04:	 When using keyword selection for linking banners the update is now saved  (Niels)
+			  - 2002-05-04:	 Zone probability showed all banners when nothing was selected  (Niels)
+			  - 2002-05-05:  Added workaround for broken images in IE when zlib.output_compression was turned on  (Niels)
+			  - 2002-05-07:  Fixed errors when upgrading from a no longer support language  (Niels)
+			  - 2002-05-07:  When try to find a global banner during direct selection only banners with only the global keyword were found  (Niels)
+			  - 2002-05-10:  Disabled GZIP output compression during upgrade as it could prevent wait-page rendering  (Matteo)
+			  - 2002-05-11:  Javascript invocation generator didn't include withtext parameter  (Niels)
+			  - 2002-05-11:  Removed newline from the last line of misc files  (Niels)
+			  - 2002-05-14:  Added missing parent column in maintenance-activation.php  (Niels)
+			  - 2002-05-14:  Fixed possible duplicate include of lib-dbconfig.php during maintenance  (Niels)
+			  - 2002-05-29:  Lib-priority was using the wrong weekday when predicting profile  (Matteo)
+			  - 2002-05-30:  Added compatibility with JavaScript 1.1, Netscape 3 and IE 5 for Mac to JavaScript invocation  (Niels)
+			  - 2002-06-03:  Publisher checkboxes now work correctly again on banner-zone.php when zones linked to campaigns are present  (Niels)
+			  - 2002-06-04:  Zones were not shown on the banner-zone.php page when no compatible campaign zones were available  (Niels)
+			  - 2002-06-04:  Moved path detection behind include of config file to prevent warnings during upgrade  (Niels)
+			  - 2002-06-04:  Fixed E_ALL errors in database upgrade script when no banners were present during the upgrade  (Niels)
+			  - 2002-06-05:  Priority calculation wrongly counted impressions  (Niels, Matteo)
+			  - 2002-06-05:  Stats converter didn't convert views/click made on 23:59:59 and/or 00:59:59  (Matteo)
+			  - 2002-06-05:  Fixed banner reload when using Animated GIFs inside Netscape 4  (Niels)
+			  - 2002-06-05:  Advertiser stats graphs were shown on campaign history pages  (Niels)
+			  - 2002-06-07:  Fixed problems dealing with daylight saving time in stats converter and lib-priority  (Matteo)
+			  - 2002-06-08:  {random} replacement didn't work with plain remote invocation and external banners  (Niels)
+			  - 2002-06-08:  Auto increment columns are not temporary disabled to allow changing of primary keys during upgrade  (Niels)
+			  - 2002-06-08:  Reworded some queries inside the all.sql file to prevent unneeded alter queries during upgrade  (Niels)
+			  - 2002-06-14:  XML-RPC zone invocation code had a PHP parse error  (Matteo)
+			  - 2002-06-19:  Fixed adclick problem with Flash banners  (Pawel Marzec)
+			  - 2002-07-01:  Javascript: links were mistakenly converted by the automatic adclick tracker  (Niels)
+			  - 2002-07-01:  Fixed another adclick problem with Flash banners  (Pawel Marzec)
+			  - 2002-07-01:  Mailto: links were mistakenly converted by the automatic adclick tracker  (Niels)
+			  - 2002-07-01:  URLs inside of <link> tags for external .css files were mistakenly converted by the automatic adclick tracker  (Niels)
+			  - 2002-07-01:  URLs inside of <base> tags were mistakenly converted by the automatic adclick tracker  (Niels)
+			  - 2002-07-03:  Fixed invalid regular expression in banner-edit.php on certain configurations  (Niels)
+			  - 2002-07-04:  Fixed another two invalid regular expression in banner-edit.php on certain configurations  (Niels)
+			  - 2002-07-04:  Upgrading from pre-priority configurations required a kickstart of the priority system  (Niels)
+			  - 2002-07-04:  When using a domain display limitation the country suffix of domain only worked without a dot before it, now works with or without  (Niels)
+			  - 2002-07-05:  url_prefix is now not present anymore in the cache, but added during delivery  (Niels)
+			  - 2002-07-05:  Impressions were not logged when ignore_hosts was set to array('') instead of array()  (Wim Godden)
+			  - 2002-07-05:  Fixed problem with writing empty array's to the config file during upgrading  (Niels)
+			  - 2002-07-07:  Added a new message when upgrade is successfull  (Niels)
+			  - 2002-07-07:  Message after a successfull install was flawed, because it said maintenance script needed to run every day  (Niels)
+			  - 2002-07-07:  'No upgrade needed' message is now displayed directly  (Niels)
+			  - 2002-07-08:  Selected language was not used in the second install screen  (Matteo)
+			  - 2002-07-09:  Fixed error message on Advertisers & Campaigns and Publishers & Zones when expanding all items when no items were present  (Niels)
+			  - 2002-07-13:  If status text contained quotes during cache rebuild they caused javascript errors during delivery  (Niels)
+			  - 2002-07-14:  Fixed problem which allow users to log in as an advertiser  (Niels)
+			  - 2002-07-15:  Fixed bug in the adpopup.php file which cause javascript errors in some cases  (Niels)
+			  - 2002-07-17:  Admin username is now stored preserving upper and lower case  (Niels)
+			  - 2002-07-17:	 After changing the username on the settings page, it will now be checked for duplicates in both the advertiser and publisher table  (Niels)
+			  - 2002-07-17:	 The check for unique fields (like username) is now case-insensitive, so 'Name' and 'name' won't be allowed for two different users  (Niels)
+			  - 2002-07-22:  Although the error string was present in translations, actually no checks were made on zone cache limit  (Matteo)
+			  - 2002-07-23:	 Added missing phpAds_makeTimestamp() function to stats conversion routines  (Niels)
+			  - 2002-07-23:  Fixed page identifier in stats-campaign-daily-hosts.php  (Matteo)
+			  - 2002-07-23:	 On banner distribution page 'Other' was counted twice when calculating the total  (Niels)
+
+
+v 2.0beta6.1		+ Minor speed improvements in view.inc.php  (Niels) 20011015
+			+ Added support for URL banner variables during regular remote invocation  (Niels) 20011016
+
+			+ Misc bugfixes
+			  - Fixed pass by reference warnings in lib-ftp.inc.php  (Niels) 20011015
+			  - HTML and URL banner variables should work correctly again  (Niels) 20011016
+			  - Fixed exploit where users could excute arbitrary code on the server  (Niels) 20011016
+
+
+v 2.0beta6		+ Added search capabilities  (Niels and Tobi Schulz)
+			+ Added expiration details to campaign index  (Niels)
+			+ Added the ablity to get the IP adress of users behind a proxy server  (Niels & Mesut Tunga)
+			+ Added ability to specify a browser-status text for each banner  (Niels)
+			+ Removed cURL and fopen-wrapper support for storing banners, added a 
+			  ftp emulation library provided by TOMO <groove@spencernetwork.org>  (Niels)
+			+ Added native support for flash banners, based on code of the 
+			  phpAdsPlus project by Stefan aka. dandra  (Niels)
+			+ Added a confirmation dialogbox, for deleting and resetting statistics (Helmut Wirth)
+			+ Added welcome message to the client interface, which can be modified
+                          to include personal contact information for example  (Niels)
+			+ Add secondary tab bar to the navigation  (Niels)
+
+			+ GUI
+			  - Added list order variants (ID or alphabetic) for administration, statistics and zones of 
+			    clients, campaigns and banners (Stefan) 20011010
+
+			+ Zones
+			  - Added support for zones  (Niels)
+			  - Zones can be linked from the banner  (Niels) 20011007
+			
+			+ ACLs
+			  The ACL routines have been rewritten. This is a very big change and possibly
+			  a change from previous behavoir. It is needed to check existing ACLs after
+			  upgrading!!! The changes include:
+			  - Ability to select multiple weekdays per ACL  (Niels)
+			  - Ability to select multiple hours per ACL  (Niels)
+			  - Added new ACL for accept-language headers  (Niels)
+			  - Added boolean operators to ACLs  (Niels)
+			  - Changed IP check, it is now possible to use * instead of a mask  (Niels)
+			  - Removed mini-help on the bottom of the page  (Niels) 20011007
+			  - Renamed ACL to Display Limitations  (Niels) 20011007 
+
+			+ Added P3P Privacy Policies support
+			  - Sending Policy location using P3P header  (Niels)
+			  - Sending Compact Policy using P3P header for cookie evaluation  (Niels)
+
+			+ Mailed reports
+			  - Added starting and end date to the reports  (Niels)
+			  - Campaigns without stats now tell there are no stats available  (Niels)
+			  - Fixed bug which prevented reports for new clients from being sent  (Niels)
+			  - First report for new clients now includes all stats up to date  (Niels)
+			  - Fixed bug which prevented stats from the last day to be included
+			    and which caused problems with a one day interval  (Niels)
+			  - Changed mail headers as a workaround for Win32 SMTP extension bug  (Niels)
+			  - Added ability to force a report from being sent from the Admin interface  (Niels)
+			  - Added charset header to all mailed reports  (Niels) 20011007
+
+			+ HTML banners
+			  - Automatic changing of HTML in order to log clicks can be disabled globally  (Niels)
+			  - Automatic changing of HTML in order to log clicks can be disabled on a per banner basis  (Niels)
+			  - The tag target='...' will be automatically replaced with the right target  (Niels)
+			  - Added support for changing form HTML automatically  (Niels)
+			  - Extra variables assigned to adclick.php are now passed through to target url  (Niels)
+			  - Added {random} support to HTML banners
+			  - Added ability to embed PHP scripts in HTML banners  (Niels)
+			
+			+ Invocationcode generator
+			  - Added URL prefix and scrolling=no  to bannercode generator  (Niels)
+			  - Added local path to phpadsnew.inc.php for local mode to bannercode generator  (Niels)
+
+			+ Statistics
+			  - Added client statistics  (Niels)
+			  - Added general history statistics (Niels)
+			  - Added history statistics for campaigns (Niels)
+			  - Added ability to reset stats for a complete client  (Niels)
+			  - Added ability to reset all stats  (Niels)
+
+			+ Language files
+			  - Added Norwegian language files  (Torbjørn Engedal)
+			  - Added Swedish language files  (Patrik Grip-Jansson)
+			  - Added Chinese language files  (Yen-Shuo Su)
+			  - Added Turkish language files  (Mesut Tunga)
+			  - Added Danish language files  (Lars Petersen)
+			  - Added Indonesian language files  (Rachim Tamsjadi)
+			  - Dropped support for Czech and Hungarian  (Niels)
+	
+			+ Misc changes
+			  - Changed all occurances of <? to <?php  (Niels)
+			  - Changed most " to ' in view.inc.php for minor speed improvement  (Niels)
+			  - Changed default names of tables, added prefix to avoid conflicts with other products  (Niels)
+			  - Changed the way JavaScript is generated for remote invocation with JavaScript  (Niels)
+			  - Rearanged directory structure for the manual, to make room
+			    for the german translation provided by René Friedrich  (Niels)
+			  - Moved JS code from view.inc.php to adjs.php file  (Niels)
+			  - Removed clients from stats-index.php for client interface, now only
+			    shows a list of campaigns  (Niels)
+			  - Added title-tag for <img> in view.inc.php for support of HTML4/XHTML1
+			    gives on mouse over popup text in >IE5 and Mozilla 0.9/Netscape 6 (Stefan) 20011003
+			  - fixed HTML problem with long names in $phpAds_name from config also sets searchbox and 
+			    "Logout" in visible position on small browser windows (Stefan) 20011004
+			  - Added meta tag to prevent searchengines from indexing the Admin interface  (Niels) 20011008
+			  - The default weight for newly created campaigns and banners can now be
+                            configured in the config file  (Niels) 20011009
+
+			+ Misc bugfixes
+			  - Fixed quote problem with banner-text, alt and description fields  (Niels)
+			  - Fixed HTML layout problem with large description and/or alt-text  (Niels)
+			  - Fixed error in client edit when client permissions were left empty (Thanks to Scott Delap)
+			  - Fixed bug: if changing from MySQL stored banner to an empty HTML banner, 
+			    raw image data would be present in HTML banner field.
+			  - Fixed bug: unlimited clicks/views checkbox in campaign-edit were
+			    deselected when jumping to clicks/views fields using TAB key (Matteo)
+			  - Fixed missing </table> tag in stats-convert.php  (Helmut Wirth)
+			  - Fixed date format in lib-reports.inc.php  (Helmut Wirth)
+			  - Fixed background color in stats-convert.php  (Helmut Wirth)
+			  - Error message when temp table can't be created  (Helmut Wirth)
+			  - Fixed error message on client stats when no banners are available  (Niels)
+			  - Removed PHP_SELF variables, which caused problems with CGI PHP  (Niels)		
+			  - Fixed some errors in the documentation  (Niels) 20011009
+			  - Edit Client now also takes the admin into account when 
+                            checking for duplicate login name  (Niels) 20011012
+  
+			+ Security fixes
+			  - Fixed login exploit where users could login without authentification  (Niels)
+			  - Fixed upload exploit where users could download files from the server  (Niels)
+			  - Fixed exploit where users could excute arbitrary code on the server  (Niels)
+
+
+
+v 2.0beta5		+ Added override setting for automatic GD detection  (Niels)
+			+ Added support for passing ISMAP click location  (Niels)
+			+ Added banner invocation code generator  (Niels)
+			+ Clients can now deactivate their own banners if permitted  (Niels thanks to Shannon Johnston)
+			+ Clients can now activate their own banners if permitted  (Niels thanks to Shannon Johnston)
+			+ Added cookie check for Admin interface login  (Niels)
+			+ Added to ability to override the banner width and height 
+ 			  if the banner is stored in MySQL or on the webserver  (Niels)
+
+			+ Changes to the database library
+			  - Replaced mysql_db_query with mysql_query  (Niels)
+			  - Always use the mysql link resource parameter  (Niels)
+			  - Database will be closed when using non-persistant connections  (Niels)
+
+			+ Clients / Campaigns
+			  - Weight based sequential banner retrieval now also takes
+			    campaign weight into account  (Niels)
+			  - Campaign weight was not substracted when ACL failed  (Niels)
+			  - Fixed clientid selection bug  (Niels)
+
+			+ PHP3 support
+			  - Replaced variable references for PHP3 support  (Niels)
+			  - Removed array_pop function for PHP 3 support  (Niels)
+			  - Changed {random} regexp for PHP 3 support  (Niels)
+				
+			+ Misc bugfixes for beta4
+			  - Changed dhtml detection for Opera   (Niels)
+			  - Fixed some HTML for better compatibility with Mozilla  (Niels)
+			  - HTML banner preview popup fixed if banner is disabled  (Niels)
+			  - Fixed JavaScript error in client-edit.php  (Niels)
+			  - Function call-time pass-by-reference removed, 
+			    will be deprecated in future versions of PHP  (Niels)
+			  - Removed spaces after ?> in phpadsnew.inc.php (Thanks to Anonymous :-)
+			  - Made standard CTR calculation respect decimal settings  (Niels)
+			  - stats-index.php and stats-campaign now use standard CTR calculation  (Niels)
+			  - Changed default decimal setting to 2  (Niels)
+			  - Changed default email headers to include the admins full name  (Niels)
+			  - Expiration date calculation fixed (Niels, thanks to Matt)
+			  
+
+
+v 2.0beta4		+ Updated GUI including a new logo  (Niels)
+			+ Added support for campaigns  (Niels)
+			+ New layout for detailed stats page  (Niels)
+			+ Added banner selection by the width property  (Niels)
+			+ Added wildcard recognition for ignored hosts  (Matteo)
+			+ Added duplicate check for usernames  (Niels)
+
+			+ Webserver stored banners
+			  - Bugfixes for CURL and fopen wrappers storage  (Niels)
+			  - Added CURL support for webserver stored banners  (Matteo)
+			  - Added fopen wrapper support for webserver stored banners  (Matteo)
+			  - Webserver stored banners are now deleted when
+			    the banner, campaign or client is deleted  (Niels)
+
+			+ Reports Plugins
+			  - Added campaign overview report plugin  (Niels)
+			  - Added campaign history report plugin  (Niels)
+			  - Added support for report plugins  (Niels)
+
+			+ Banner invocation
+			  - Added support for iframes  (Niels)
+		 	  - Added support for rotating banners in an iframe  (Niels)
+			  - Renamed phpads.php, remotehtmlview.php and click.php to
+			    adview.php, adjs.php and adclick.php. The old files are still
+			    available for backwards-compatibility  (Niels)
+			  - Merged click.php and htmlclick.php in one file  (Niels)
+			  - Merged viewbanner.php and phpads.php in one file  (Niels)
+			  - HTML banners are automatically disabled for remote invocation  (Niels)
+
+			+ Automatic maintenance / mailed reports
+			  - Replaced mail.php with maintenance.php  (Niels)
+			  - Changed formatting of mailed reports  (Niels)
+			  - Mailed reports can be turned on/off through the admin interface  (Niels)
+			  - Interval of mailed reports can be configured through the admin interface  (Niels)
+			  - Mailed reports now remember the last date they were sent, so 
+			    duplicate reports won't be sent  (Niels)
+			  - Expiration warning reports can now be translated  (Niels)
+			  - Expiration reports can be turned on/off through the admin interface  (Niels)
+			  - Expiration report formatting changed  (Niels)
+			  - Expiration during banner invocation now also sents an report email  (Niels)
+			  - Expiration criteria during banner invocation changed  (Niels)
+			
+			+ HTML banners variables
+			  - Added support for {targeturl:...}  (Niels)
+			  - Added support for {referer}  (Niels)
+
+			+ Language files
+			  - Updated Italian language files  (Matteo)
+			  - Added Romanian language files  (Tudor Barbarosie)
+			  - Updated German language files  (René Friedrich)
+			  - Updated Russian language files  (Michael Bravo)
+			  - Updated Dutch language files  (Niels)
+			
+			+ Misc bugfixes
+			  - Expiration date calculation rewritten  (Niels)
+                          - Hostname logging works again when $phpAds_reverse_lookup 
+			    is not set and server provides hostname  (Matteo) 
+			  - GD detection should work again for PHP3  (Niels)
+			
+			+ Misc bugfixes for beta3
+			  - Default banner type was always selected even if editing a banner (Matteo)
+			  - Client language settings are now checked if it is empty  (Niels)
+			  - Source parameter works again with remote invocation  (Alain Fontaine)
+			  - {targeturl} was urlencoded  (Niels)
+			  - Context parameter works again  (Martin Klerx) 
+			  - Stats conversion should work again  (Niels)
+			  - Client language settings case problem fixed  (Niels)
+
+
+v 2.0beta3		+ Added support for Flash variables (Niels)
+			+ Added support for timestamp variable (Niels)
+			+ Added support for single quotes in HTML banners (Niels)
+			+ ACL checking can be disabled in the configuration file (Niels)
+			+ Updated Italian language files (Luca Pescatore)
+			+ Misc bugfixes for beta2 
+			  - sequential banner retrieval works again (Niels)
+			  - stripslashes added for HTML banners (Niels)
+			  - Misc. E_ALL warnings fixed (Niels)
+			  - Charset for russian-cp1251 language files fixed (Niels)
+			  - Default banner with remote invocation fixed
+			  - JavaScript error when certain banner types were disabled (Niels)
+			  - Check for empty username/password (Niels)
+			  - MySQL banner was always shown even if disabled (Niels)
+
+v 2.0beta2		+ Added support for banners stored on the webserver (Niels)
+			+ Added client weight (Niels)
+			+ Added activation and expiration date (Niels)
+			+ Added conversion tool for verbose->compact statistics (Niels)
+			+ Added mailed reports in client language (Niels)
+			+ Bugfix: Fixed E_ALL warnings (Niels, thanks to Vivian Girel)
+			+ Bugfix: Quotes are now allowed in HTML banners (Niels)
+			+ Bugfix: Empty strings in mail.php fixed (Niels)
+			+ Bugfix: Deactivation bug fixed in mail.php (Niels)
+			+ Misc bugfixes for beta1
+
+v 2.0beta1		+ Added a new User Interface (Niels)
+			+ Added new documentation (Niels)
+			+ Added cache buster support for banners refered through URL (Niels)
+			+ Added configurable default banner to display when an error occurs or when 
+			  there are no banners to display at all (Niels)
+			+ Added global weekly stats (Niels)
+			+ Additional translations (Niels, thanks to Hugo Gomez, Michael Bravo, Alain Fontaine and others)
+			+ Moved client settings error messages to language files (Niels thanks to regiepub)
+			+ Client preferences can be disabled by the admin (Niels)
+			+ Clients can select their own language, if permitted by the admin (Niels)
+			+ Complete new authorisation library, including client permissions (Niels)
+			+ Added an html header and footer (Cedric)
+			+ Added the preferences for client (Cedric)
+			+ Added two extra banner retrieval methods (Niels)
+			+ Added the no stats for this banner message in the client stats (Cedric)
+			+ Translate No expiration date set also (Cedric)
+			+ Bugfix: Ignore_hosts now works on both names and adresses (Niels)
+			+ Bugfix: empty what argument now works correctly agin (Niels)
+			+ Bugfix: made some database queries atomic in order to make logging more stable (Niels)
+			+ Bugfix: deactivating banners when AdView limit is reached now works again (Niels)
+			+ Bugfix: global not set in weeklystats (Cedric)
+			+ Bugfix: repeat the %CTR in weeklystats view (average/total) (Cedric)
+			+ Bugfix: ClientDelete didn't delete banners and stats (Cedric)
+			+ Bugfix: Home wasn't translated in the client view (Cedric)
+			+ Bugfix: weekly stats didn't work correctly with multiple banners client (Cedric thanks to Niels)
+			+ Bugfix: removed "Reset Statistics" button from the client interface (Niels)
+
+
+
+
+v 1.9.2 - 08/03/2001	+ Removed config2.inc.php (Phil)
+			+ Bugfix: removed hourly graph for compact statistics (Niels)
+			+ Bugfix: client statistics is working again, no more SQL errors (Niels)
+			+ Bugfix: improved detection of GD availability for PHP4 (Niels)
+			+ Bugfix: removed GD dependancy for weekly stats, no more broken image (Niels)
+			+ Bugfix: removed PHP4 dependancy for Remove invocation with Javascript (Niels)
+			+ Bugfix: implemented workaround for IE bug in the admin pages (Niels)
+			+ Bugfix: sequential banner retrieval did not work (Niels)
+			+ Bugfix: target was not recognized (Niels)
+			+ Bugfix: client ID, was reset to 0 (Niels)
+			+ Bugfix: Detailed statistics were empty after adding an ACL to a banner (Niels)
+			+ Bugfix: SQL error after resetting statistics (Niels, Phil)
+			+ Bugfix: bad include path (Phil)
+			+ Bugfix: mail.php disable wrong clients (Cedric)
+			+ Translate french version (Cedric)
+
+v 1.9.1 - 02/03/2001    + BugFix: typo in dailystats.inc.php (Phil)
+			+ Bugfix: "when" is a reserved word in mysql?  Who knew?  (Phil)
+			+ Fix for PHP3 compatibility in expiration.inc.php (Phil, others)
+
+v 1.9.0 - 01/03/2001    + Several bugfixes (Phil)
+                        + Changed banneradd.php layout for IE ONLY (with javascript and <DIV>s) (Phil)
+                        + Added db_query() function to assist debugging mysql errors
+                        + Added description field in the database for future use (Phil)
+                        + Fixed some language text bugs
+                        + Added/corrected some ACL help text (Phil)
+                        + Fixed ACL DOMAIN FILTER bug (Phil, others)
+                        + Added ACL "*" feature for default DENY (Phil)
+                        + Added persistent connections OPTION (Phil)
+                        + Fixed gd.php to determine graphics capabilities for php 4.04 (Niels Leenheer)
+                        + Div by zero error in expiration.inc.php (Phil)
+                        + New compact statistics database format (Phil)
+                        + Multipart "what" syntax for view() function (Niels Leenheer)
+                        + German/Dutch/Flemish language file fixes (silicon, Niels)
+                        + Bugfix: Javascript remotehtmlview bugs with newlines, squotes, etc. (Phil)
+                        + Added view_raw() function (Niels)
+                        + Rewrote weighting system for efficiency (Phil)
+
+v 1.8.1 - 01/02/2001	+ Added Login as a string (Fabian Rodriguez and me)
+			+ Bugfix: parse error in mail.php (me)
+			+ Bugfix: division by 0 in stats.inc.php (Phil)
+			+ All language files now have a seperate directory (me)
+			+ Added customizable colours to config.inc.php (me)
+			+ Update color schemes in weeklystats.html.php (me)
+			+ Increased mail.php speed (Martin Braun)
+			+ Small change to Documentation.html explaining problems with login (me)
+			+ Bugfix: banners no longer deactivated from mail.php when not needed (Martin Braun)
+			+ Bugfix: several fixes in expiration and weeklystats (Martin Braun)
+			+ Updated banner acl screen (Martin Braun)
+			+ Added language files with help for banner acl (Martin Braun)
+			+ New lines are automatically removed from html code in remotehtmlview.php (me)
+			+ Bugfix: creditstats now shows html banners correctly (me)
+
+v 1.8.0 - 06/01/2001	+ Added expiration stats on credit stats and client stats (Martin Braun)
+                        + Added weekly stats - needs serious optimizing (Martin Braun)
+                        + Added anti-cache feature (Martin Braun)
+			+ All files have new indents to make viewing and developing easier. Read DEVELOPERS for more info.
+			+ sphourly.php changed to reflect changes in weeklystats (Martin Braun)
+			+ Updated documentation.html with explanation about remotehtmlview (me)
+			+ Bugfix: kcsm.php had 2 quotes missing and 1 too many (me)
+			+ Bugfix: client.php now has client-side JavaScript to detect bad entries in views/clicks/daysleft (me)
+			+ Bugfix: mail.php doesn't deactive clients anymore (sypplie)
+			+ Bugfix: Authentication required for detailstats now. (me)
+			+ Bugfix: forgot banner in creditstats.php. HTML-banners will show now. (me)
+                        + Bugfix: several smaller bugs fixed.
+
+v 1.7.1 - 18/12/2000    + Bugfix: login box only appears once now
+
+v 1.7.0 - 17/12/2000    + Fixed a problem for Windows users with banneradd.php
+                        + GIF/PNG support automatically detected (first contribution of Phil)
+                        + Clients now have logout function
+                        + When logging in, user is first logged out
+                        + Added remote HTML banners through JavaScript
+                        + Credit Statistics now sorted by letter. 1 screen per letter.
+                        + Bugfix: Previous is now shown in the creditstats screen
+                        + Bugfix: images without links patch applied (thanks wesku)
+                        + Bugfix: fixed a problem with creditstats showing wrong number of clicks
+                        + Bugfix: clients can get expire date again
+                        + Bugfix: typo in admin.php
+                        + Bugfix: several bugs have been fixed
+
+v 1.6.3 - 11/30/2000    + Bugfix: banners no longer set to inactive at wrong moments
+
+v 1.6.2 - 11/28/2000    + Added 'Reset Statistics' for banners
+                        + Added Dutch/Flemish language file
+                        + Bugfix: some minor bugs
+
+v 1.6.1 - 11/26/2000    + Updated all language files to include new variables (untranslated)
+                        + Replaced some English expressions by variables
+
+v 1.6.0 - 11/25/2000    + Added client listing with credit stats (experimental)
+                        + Added time ACL (experimental)
+                        + Logging of HTMl banner clicks (experimental)
+                        + Added admin and client directories again
+                        + Updated German translation errors (Ralf Eggert)
+                        + Bugfix: phpAds should work under PHP 3.0.7
+                        + Bugfix: banner with 0 impressions left no longer shown
+                        + Added extra statistics
+                        + Setting unlimited number of views/clicks/days is now possible
+                        + Bugfix: banner no longer deactivated at wrong times
+                        + Bugfix: banner count decreases correctly
+                        + Fixed several typos in the comments
+                        + Added Russian language file
+                        + Bugfix: added 2 files to acls table
+
+v 1.5.1 - 11/19/2000    + Bugfix: admin.php had an error when no adviews had been logged
+
+v 1.5.0 - 11/18/2000    + Stats now generate a PNG-image instead of GIF-image (GD doesn't support GIF anymore)
+                        + Rewrote weighting system
+                        + Bugfix: Domain ACL works fine now
+                        + Bugfix: Source ACL works fine now
+                        + Bugfix: Empty banner problem fixed
+                        + Added logout link for increased security and client testing
+                        + Default weight set to 1
+                        + Bugfix: works fine under PHP 4.0.3 (earlier versions not tested)
+                        + Bugfix: cookie problem fixed
+                        + Added average Click-Through Ratio for all ads
+                        + Some cosmetic changes
+
+v 1.4.10 - 09/17/2000   + Bugfix: Error shown in some odd cases
+                        + Documentation updates
+
+v 1.4.9 - 09/14/2000    + First version of phpAdsNew, starting from phpAds 1.4.0.
+                        + Added support for multiple keywords
+                        + Added support for conditional keywords
+                        + Added support for sequential banner retrieval
+                        + Added page frame targeting
+                        + Added banner decrementing and low views/clicks warning e-mail
+                        + Added banner weighing
+                        + Added domain ACL
+                        + Added source ACL
+
+
+
+
+v 1.4.0 - 05/01/2000    + Bugfix: Clients were able to look at other clients'
+                          statistics.
+                        + Bugfix: HTML banners weren't counted properly.
+                        + Bugfix: link targets didn't work with HTML banners.
+                        + Bugfix: there might have been problems with some
+                          statistics if no hits were recorded for a certain 
+                          hour.        
+                        + Added support for Access Control Lists:
+                          IP matching, User Agent matching, restricting banners
+                          to certain week days.
+                        + Added support for date-expiring banners.
+                        + Fixed bugs in remote invocation and admin.
+                        + Added support for INSERT DELAYED in logging.
+                        + Bugfix: Cookies weren't set correctly on Windows.
+                        + Added support for multiple remote banners.
+                        + Bugfix: Stats were sent to deactivated customers.
+
+v 1.3.0 - 12/12/1999    + Added the possibility to exclude hosts from logging.
+                        + Made view() return the bannerID.
+                        + Killed a lot of warnings.
+                        + Added a new argument, context, to view(), allowing
+                          to exclude banners from the search or limit the
+                          search to specified banners.
+                        + Added better daily statistics.
+                        + Added warning before deleting a client.
+                        + Added graphical statistics showing overall hourly
+                          average.
+                        + Added the possibility to turn off reverse DNS
+                          lookups.
+                        + Fixed some problems with clients' login.
+
+v 1.2.0 - 09/26/1999    + Miscellaneous bugfixes.
+                        + Changed the display of the ratio to use percents.
+                        + Added the possibility to use multiple keywords in 
+                          view().
+                        + Made table names configurable.
+                        + Better and graphically nicer statistics.
+
+v 1.1.0 - 08/22/1999    + Changed phpAds to have all files in a single directory,
+                          thus avoiding the need of altering PHP's include_path.
+                        + Bugfix: mail.php3 messed up the statistics if more than
+                          one client existed.
+                        + Added support for banners stored on an another server
+                          (ie. referenced by URL).
+                        + Bugfix: Administration could mess up things when using
+                          remote invocation.
+
+v 1.0.0 - 07/25/1999    + Added support for a line of text appearing below banners.
+                        + Added support for keywords/banner groups.
+                        + Added support to select banners belonging to a specific
+                          client.
+                        + Cleaned up user interface.
+                        + Bugfix: Content-Type was set to image/jpg instead of
+                          image/jpeg.
+                        + Bugfix: Some fixes related to PHP4.
+                        + Bugfix: Clients with the same username as the admin
+                          were able to login to /admin even if the password was
+                          different.
+                        + Better documentation.
+
+v 0.9.4 - 03/18/1999    + Addded the possibility to modify existing banners.
+                        + Bugfix: Content-type wasn't correct when sending GIF
+                          or PNG-banners.
+                        + Changed the method how banners are displayed slightly.
+                          It's no longer necessary to have include_path set in the
+                          directory where the HTML files reside.
+                        + Bugfix: Changed the way old sessions are purged a bit as
+                          it didn't work correctly.
+                        + Addded support for link targets to the view() function.  
+                        + Added support for remote invocation via <img>- and
+                          <iframe>-tags.
+                        + Added preliminary support for fail-safe banners.
+
+v 0.9.3 - 03/10/1999    + Changed mt_rand() to rand() in kcms.php3 for better
+                          downward-compatiblity.
+                        + Changed the way the session data is retrieved from the
+                          database for better compatibility with MySQL. 3.21.x.
+                        + Bugfix: viewbanner.php3 had a stripslashes where it 
+                          wasn't needed.
+                        + Improved navigation.
+                        + Some changes to the file layout.
+                        + Bugfix: When only one banner was matched by the criteria
+                          specified by view(), a warning was displayed.
+                        + Outsourced the view() function to a separate file
+                          ("view.inc.php3") to avoid global namespace pollution.
+
+v 0.9.2 - 03/06/1999    + Bugfix: The remote hostname wasn't showed correctly in
+                          the daily statistics.
+                        + Added more tweaks to the INSTALL file.
+                        + Some minor improvements and bugfixes.
+
+v 0.9.1 - 03/02/1999    + Bugfix: adding a banner didn't work correctly when no
+                          banner was in the inventory.
+                        + Bugfix: The whole stuff didn't work with files outside
+                          the phpAds-tree. Corrected.
+                        + Added this ChangeLog.
+
+v 0.9.0 - 03/01/1999    + Inital beta release

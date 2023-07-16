@@ -1,0 +1,281 @@
+html,body {
+	background: #FAFAFA;
+	font-family: Georgia,Palatino,Trebuchet MS,Verdana;
+	font-size: 13px;
+	margin: 0px;
+}
+
+#wrap {
+	width: 750px;
+	border-style: solid;
+	border-color: #E1E1E1;
+	border-left-width: 1px;
+	border-right-width: 1px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	left: 50%;
+	margin-left: -344px; 
+	position: absolute;
+	background: #FFFFFF;
+}
+
+#main {
+	color: #333333;
+	line-height: 140%;
+	margin: auto;
+	background-color: transparent;
+	height: 100%;
+}
+
+#header {
+	background: url("<?php echo $bmc_vars['c_urls']."/templates/".CFG_THEME; ?>/images/header.jpg") no-repeat;
+	height: 140px;
+	margin-bottom: 30px;
+}
+
+#header_title {
+	text-align: right;
+	color: #9E9E9E;
+	padding-right: 10px;
+	padding-top: 50px;
+	font-size: 24px;
+	font-family: Georgia;
+	font-weight: bold;
+}
+
+#content {
+	padding-left: 10px;
+	padding-bottom: 30px;
+	height: 100%;
+}
+
+#content h1 {
+	font-size: 17px;
+	color: #666666;
+	font-weight: bold;
+}
+
+#menu {
+	width: 160px;
+	float: right;
+	border-style: dotted;
+	border-left-width: 2px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	border-color: #EFEFEF;
+	padding-left: 20px;
+	margin-bottom: 10px;
+
+}
+
+#menu a {
+	font-weight: normal;
+}
+
+.menu_item {
+	margin-bottom: 30px;
+	font-size: 10px;
+	font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Helvetica;
+}
+
+a {
+	color: #CC3333;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+img {
+	border: 0px;
+}
+
+input,textarea,select {
+	font-size: 11px;
+	font-family: Verdana;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #B1B1B1;
+}
+
+.post_title {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.entry {
+	line-height: 150%;
+}
+
+.entry a {
+	font-weight: normal;
+}
+
+.entry_img {
+	border-style: solid;
+	border-width: 4px;
+	border-color: #EEEEEE;
+}
+
+.entry_info {
+	font-family: Trebuchet MS;
+	font-size: 11px;
+	font-weight: bold;
+	margin-bottom: 50px;
+}
+
+.entry_info a {
+	color: #CC3300;
+}
+
+.main_page_info {
+	margin-top: 25px;
+	margin-bottom: 75px;
+}
+
+
+.comment {
+	line-height: 150%;
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+
+.comment a {
+	font-weight: normal;
+}
+
+.comment_info {
+	font-size: 12px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.comment_info a {
+	color: #CC3300;
+}
+
+.track {
+	font-size: 12px;
+}
+
+#footer {
+	margin-bottom: 15px;
+	margin-top: 100px;
+	position: relative;
+	text-align: center;
+	font-size: 11px;
+	font-family: 'Trebuchet MS',Verdana;
+}
+
+#footer a {
+	font-weight: normal;
+}
+
+.form_fields {
+	margin-left: 25%;
+	border: 1px solid #B2B2B2;
+	background-color: #FCFCFC;
+	padding: 25px;
+	width: 280px;
+	text-align: right;
+}
+
+.form_fields textarea, input, select {
+	font-family: Trebuchet MS;
+	font-size: 11px;
+	background: #f0f0f0;
+	border-color: #CCCCCC;
+	border-style: solid;
+	border-width: 1px;
+	margin: 2px;
+}
+
+.form_fields input {
+
+}
+
+.bold_red {
+	font-weight: bold;
+	color: #FF0000;
+	font-size: 13px;
+}
+
+.pange_num {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.hr_line {
+	border-color: #EFEFEF;
+	border-style: dotted;
+	border-left-width: 0px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 1px;
+}
+
+#error_msg {
+	margin-top: 50px;
+	text-align: center;
+}
+
+.file_list {
+	font-size: 10px;
+	font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Helvetica;
+	border-color: #EFEFEF;
+	border-style: solid;
+	border: 1px;
+	background: #F7F7F7;
+	padding: 5px;
+	width: 200px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+.file_list a {
+	font-weight: normal;
+}
+
+
+.calendar_table {
+	font-family: "Arial", verdana, sans-serif;
+	background: #ffffff;
+	color: #000000;
+}
+
+.calendar_month {
+	font-family: "Arial", verdana, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	background: #F6F6F6;
+	color: #666666;
+}
+
+.calendar_days {
+	font-family: "Arial", verdana, sans-serif;
+	font-size: 10px;
+	text-align: center;
+	background: #FFEEEE;
+	font-weight: bold;
+	color: #000000;
+}
+
+.calendar_current_day {
+	font-family: "Arial", verdana, sans-serif;
+	font-size: 10px;
+	text-align: center;
+	background: #F0CBCB;
+	color: #333333;
+}
+
+.calendar_day {
+	font-family: "Arial", verdana, sans-serif;
+	font-size: 10px;
+	text-align: center;
+	background: #ffffff;
+	color: #333333;
+}
+
+#file_div, #file_div a {
+	font-size: 7pt;
+	color: #FF6600;
+}
